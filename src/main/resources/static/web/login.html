@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>宿舍管理系统</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link rel="stylesheet" type="text/css" href="../js/bootstrap3/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="../js/bootstrap3/font-awesome-4.7.0/css/font-awesome.css" />
+		<!-- 自定义样式 -->
+		<link rel="stylesheet" type="text/css" href="../css/login.css" />
+		<!-- ext的样式文件 -->
+		<link rel="styleSheet" type="text/css" href="../js/extjs/resources/css/ext-all.css">
+		<!-- extjs的核心文件 -->
+		<script type="text/javascript" charset="utf-8" src="../js/extjs/ext-all-debug.js"></script>
+		<!-- 国际化文件 -->
+		<script type="text/javascript" charset="utf-8" src="../js/extjs/ext-lang-zh_CN.js"></script>
+	</head>
+
+	<body>
+		<!--登录页页标题-->
+		<header>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-offset-2 col-md-8">
+						<h1>
+							<small>欢迎使用</small> <b>齐鲁工业大学</b> 宿舍管理系统
+						</h1>
+					</div>
+				</div>
+			</div>
+		</header>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-offset-2 col-md-8">
+					<!--登陆面板-->
+					<div class="panel panel-primary">
+						<!--面板标题-->
+						<div class="panel-heading">
+							<h3 class="panel-title">管理员登陆</h3>
+						</div>
+						<!--面板主体-->
+						<div class="panel-body">
+							<!--登陆表单-->
+							<form class="form-horizontal" role="form" id="login_form">
+								<!--用户名-->
+								<div class="form-group">
+									<label for="name" class="col-md-2 control-label">用户名</label>
+									<div class="col-md-8">
+										<input type="text" class="form-control" id="name" name="username" placeholder="请输入用户名">
+									</div>
+								</div>
+								<!--密码-->
+								<div class="form-group">
+									<label for="pwd" class="col-md-2 control-label">登录密码</label>
+									<div class="col-md-8">
+										<input type="password" class="form-control" id="pwd" name="password" placeholder="请输入密码">
+									</div>
+								</div>
+								<!--登陆按钮-->
+								<div class="form-group">
+									<div class="col-md-offset-2 col-md-10">
+										<input type="button" class="btn btn-default subreg" id="btn_submit" value="登陆">
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--网页页脚-->
+		<footer>
+			<div class="container">
+				<div class="text-center">
+					<a target="_blank" href="http://www.qlu.edu.cn">齐鲁工业大学</a> 版权所有
+				</div>
+			</div>
+		</footer>
+	</body>
+	<script type="text/javascript" src="../js/bootstrap3/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap3/js/bootstrap.js"></script>
+	<script type="text/javascript" src="../js/bootstrap3/js/holder.js"></script>
+	<script type="text/javascript" src="../js/bootstrap3/js/html5shiv.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap3/js/css3-mediaqueries.js"></script>
+	<script type="text/javascript" src="../js/bootstrap3/js/respond.min.js"></script>
+	<script type="text/javascript">
+		$("#btn_submit").click(function(){
+			$.ajax({
+				"url":"/users/login",
+				"data":$('#login_form').serialize(),
+				"type":"post",
+				"dataType":"json",
+				"success":function (obj) {
+					if(obj.state==2000){
+						alert("登陆成功！");
+					}else{
+						Ext.Msg.alert("提示信息",obj.message);
+					}
+				}
+			});
+		});
+	</script>
+</html>

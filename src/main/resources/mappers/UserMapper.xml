@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.qlu.edu.domanagement.mapper.UserMapper">
+	<!--管理员用户登陆校验账号密码-->
+	<select id="login" resultType="com.qlu.edu.domanagement.entity.User">
+		SELECT
+			*
+		FROM
+			user
+		WHERE
+			username=#{username} AND password=#{password}
+	</select>
+	<!--根据管理员用户名查询是否存在该用户名-->
+	<select id="findByUsername" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			user
+		WHERE
+			username=#{username}
+	</select>
+	
+</mapper>
+
+
+
