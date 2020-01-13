@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>宿舍管理系统</title>
+    <!-- ext的样式文件 -->
+    <link rel="styleSheet" type="text/css" href="/js/extjs/resources/css/ext-all.css">
+    <!-- extjs的核心文件 -->
+    <script type="text/javascript" charset="utf-8" src="/js/extjs/ext-all-debug.js"></script>
+    <!-- 国际化文件 -->
+    <script type="text/javascript" charset="utf-8" src="/js/extjs/ext-lang-zh_CN.js"></script>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+    Ext.Loader.setPath('Index','/js/index');
+    Ext.onReady(function () {
+       Ext.require('Index.Main',function () {
+          Ext.widget('viewport',{
+              layout:'fit',
+              items:Ext.create('Index.Main')
+          });
+       });
+    });
+</script>
+</html>

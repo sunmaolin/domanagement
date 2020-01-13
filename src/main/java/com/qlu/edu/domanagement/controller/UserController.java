@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * 处理管理员用户数据的相关请求控制器类
  */
@@ -16,10 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController extends BaseController {
     @Autowired
     private UserService userService;
+
     @PostMapping("login")
-    public JsonResult<Void> login(User user){
+    public JsonResult login(User user, HttpSession session){
         User loginUser=userService.login(user);
-        //TODO 存储session
+        session.setAttribute("username",loginUser.getUsername());
         return new JsonResult(OK);
     }
 }
