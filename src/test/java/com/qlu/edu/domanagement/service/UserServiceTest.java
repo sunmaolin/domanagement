@@ -21,4 +21,13 @@ public class UserServiceTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void changePassword(){
+        try{
+            userService.changePassword(1,"su","sml");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }

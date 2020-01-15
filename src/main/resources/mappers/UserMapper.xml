@@ -11,15 +11,26 @@
 		WHERE
 			username=#{username} AND password=#{password}
 	</select>
-	<!--根据管理员用户名查询是否存在该用户名-->
-	<select id="findByUsername" resultType="Integer">
+
+	<!--判断是否su用户-->
+	<select id="isSu" resultType="Integer">
 		SELECT
-			COUNT(*)
+			su
 		FROM
 			user
 		WHERE
-			username=#{username}
+			uid=#{uid}
 	</select>
+
+	<!--管理员修改密码-->
+	<update id="changePassword">
+		UPDATE
+			user
+		SET
+			password=#{newPassword}
+		WHERE
+			uid=#{uid} AND password=#{oldPassword}
+	</update>
 	
 </mapper>
 

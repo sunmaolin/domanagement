@@ -1,12 +1,16 @@
+/**
+ * 首页面设计
+ */
 Ext.define('Index.Main',{
     extend:'Ext.panel.Panel',
-    xtype:'Main',
-    id:'Main',
+    requires:['Index.Function'],
+    xtype:'main',
+    id:'main',
     layout:'border',
     initComponent:function () {
-        var Main_me=this;
-        Main_me.callParent();
-        Main_me.loadData();
+        var main_me=this;
+        main_me.callParent();
+        main_me.loadData();
     },
     loadData:function () {
 
@@ -35,10 +39,11 @@ Ext.define('Index.Main',{
         collapsed:true,
         split:true,
         items:{
-            html:'你好'
+            xtype:'fun'
         }
     },{
         region: 'center',
+        id:'center',
         xtype:'tabpanel',
         layout: 'fit'
     }]
