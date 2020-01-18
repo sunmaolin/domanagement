@@ -31,7 +31,43 @@
 		WHERE
 			uid=#{uid} AND password=#{oldPassword}
 	</update>
-	
+
+	<!--查询所有管理员-->
+	<select id="findUser" resultType="com.qlu.edu.domanagement.entity.User">
+		SELECT
+			*
+		FROM
+			user
+		WHERE
+			uid != #{uid}
+	</select>
+
+	<!--查询用户名是否存在-->
+	<select id="findUserName" resultType="Integer">
+		SELECT
+			count(*)
+		FROM
+			user
+		WHERE
+			username=#{username}
+	</select>
+
+	<!--添加用户-->
+	<insert id="addUser">
+		INSERT INTO user(
+			username,password,su
+			)VALUES (
+			#{username},#{password},0
+			)
+	</insert>
+
+	<!--删除用户-->
+	<delete id="deleteUser">
+		DELETE FROM
+			user
+		WHERE
+			uid=#{uid} AND username=#{username}
+	</delete>
 </mapper>
 
 

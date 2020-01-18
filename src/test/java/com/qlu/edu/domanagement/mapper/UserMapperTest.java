@@ -27,4 +27,28 @@ public class UserMapperTest {
         Integer row=userMapper.changePassword(1,oldPassword,newPassword);
         System.err.println(row);
     }
+
+    @Test
+    public  void findUser(){
+        User[] user=userMapper.findUser(1);
+        System.err.println(user);
+    }
+
+    @Test
+    public void  findUserName(){
+        Integer row=userMapper.findUserName("sss");
+        System.err.println(row);
+    }
+
+    @Test
+    public void deleteUser(){
+        Integer row=userMapper.deleteUser(3,"sml");
+        System.err.println(row);
+    }
+
+    @Test
+    public void addUser(){
+        Integer rows=userMapper.addUser("bb","bb");
+        System.err.println(rows);
+    }
 }

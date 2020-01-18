@@ -31,4 +31,35 @@ public interface UserMapper {
      * @return
      */
     Integer isSu(Integer uid);
+
+    /**
+     * 查询所有管理员用户名密码
+     * @param uid 登陆用户超级管理员需要排除
+     * @return
+     */
+    User[] findUser(Integer uid);
+
+    /**
+     * 查询用户名是否存在
+     * @param username
+     * @return
+     */
+    Integer findUserName(String username);
+
+    /**
+     * 添加用户
+     * @param username
+     * @param password
+     * @return
+     */
+    Integer addUser(String username,String password);
+
+    /**
+     * 根据用户id和用户名删除
+     * @param uid
+     * @param username
+     * @return
+     */
+    Integer deleteUser(Integer uid,String username);
+
 }

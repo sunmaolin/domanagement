@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.qlu.edu.domanagement.mapper.DormitoryMapper">
+	<!--查询所有宿舍楼-->
+	<select id="findFloor" resultType="com.qlu.edu.domanagement.entity.Floor">
+		SELECT
+			*
+		FROM
+			floor
+		ORDER BY
+			fid
+	</select>
+
+	<!--根据宿舍楼id查询所有宿舍-->
+	<select id="findDormitoryByFid" resultType="com.qlu.edu.domanagement.entity.Dormitory">
+		SELECT
+			*
+		FROM
+			dormitory
+		WHERE
+			fid=#{fid}
+		ORDER BY
+			did
+	</select>
+</mapper>
+
+
+

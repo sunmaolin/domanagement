@@ -43,8 +43,38 @@ public class UserController extends BaseController {
         return new JsonResult(OK);
     }
 
-    @PostMapping("clear_session")
-    public void clearSession(HttpSession session){
-        session.invalidate();//退出登陆移除所有session数据
+    @PostMapping("session_data")
+    public String clearSession(String flag,HttpSession session){
+        if("clear".equalsIgnoreCase(flag)){
+            session.invalidate();//退出登陆移除所有session数据
+        }else if ("title".equalsIgnoreCase(flag)){
+            return (String)session.getAttribute("username");
+        }
+        return null;
     }
+
+    @PostMapping("find_user")
+    public JsonResult findUser(HttpSession session){
+        Integer uid=(Integer)session.getAttribute("uid");
+        User[] user=userService.findUser(uid);
+        if(user==null){
+            return new JsonResult(OK,"没有更多人员信息!");
+        }
+        return new JsonResult(OK,user);
+    }
+
+    @PostMapping("delete_user")
+    public JsonResult deleteUser(Integer uid,String username){
+        userService.deleteUser(uid, username);
+        return new JsonResult(OK);
+    }
+
+    @PostMapping("add_user")
+    public JsonResult addUser(String username,String password,HttpSession session){
+        userService.findUsername(username);
+        userService.addUser(username,password);
+        return new JsonResult(OK);
+    }
+
+
 }

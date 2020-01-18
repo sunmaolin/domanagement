@@ -3,9 +3,7 @@ package com.qlu.edu.domanagement.service.impl;
 import com.qlu.edu.domanagement.entity.User;
 import com.qlu.edu.domanagement.mapper.UserMapper;
 import com.qlu.edu.domanagement.service.UserService;
-import com.qlu.edu.domanagement.service.ex.NotIsSuException;
-import com.qlu.edu.domanagement.service.ex.PasswordNotMatchException;
-import com.qlu.edu.domanagement.service.ex.oldPasswordNotMatchException;
+import com.qlu.edu.domanagement.service.ex.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +35,36 @@ public class UserServiceImpl implements UserService {
         Integer changeRow=userMapper.changePassword(uid, oldPassword, newPassword);
         if(changeRow != 1){
             throw new oldPasswordNotMatchException("当前密码错误！");
+        }
+    }
+
+    @Override
+    public User[] findUser(Integer uid) {
+        return userMapper.findUser(uid);
+    }
+
+    @Override
+    public void deleteUser(Integer uid, String username) {
+        Integer row=userMapper.deleteUser(uid, username);
+        if(row!=1){
+            throw new ServiceException("删除失败！请联系开发人员！");
+        }
+    }
+
+    @Override
+    public void findUsername(String username) {
+        Integer rows=userMapper.findUserName(username);
+        if(rows!=0){
+            throw new UserNameIsHavaException("用户名已存在！");
+        }
+
+    }
+
+    @Override
+    public void addUser(String username, String password) {
+        Integer rows=userMapper.addUser(username,password);
+        if(rows!=1){
+            throw new ServiceException("增加失败，未知原因请联系开发人员！");
         }
     }
 }
