@@ -4,6 +4,9 @@ import com.qlu.edu.domanagement.entity.Dormitory;
 import com.qlu.edu.domanagement.entity.Floor;
 import com.qlu.edu.domanagement.mapper.DormitoryMapper;
 import com.qlu.edu.domanagement.service.DormitoryService;
+import com.qlu.edu.domanagement.service.ex.DormitoryNameExistException;
+import com.qlu.edu.domanagement.service.ex.FloorNameExistException;
+import com.qlu.edu.domanagement.service.ex.HaveChildrenException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,5 +51,87 @@ public class DormitoryServiceImpl implements DormitoryService {
         }
 
         return treeData;
+    }
+
+    @Override
+    public void insertFloor(String fname) {
+        
+        String name=dormitoryMapper.findFloorName(fname);
+        if(name!=null){
+            throw new FloorNameExistException(name+"已存在!");
+        }
+        dormitoryMapper.insertFloor(fname);
+    }
+
+    @Override
+    public void insertDormitory(Integer fid, String dname) {
+        String name=dormitoryMapper.findDormitoryName(fid, dname);
+        if(name!=null){
+            throw new DormitoryNameExistException(dname+"已存在！");
+        }
+        dormitoryMapper.insertDormitory(fid, dname);
+    }
+
+    @Override
+    public void insertFloors(Integer start, Integer end) {
+        for (int i=start;i<=end;i++){
+            String fname=toChinese(i)+"号楼";
+            insertFloor(fname);
+        }
+    }
+
+    @Override
+    public void insertDormitorys(Integer fid, Integer start, Integer end) {
+        for (int i=start;i<=end;i++){
+            insertDormitory(fid,String.valueOf(i));
+        }
+    }
+
+    @Override
+    public void deleteFloor(String fname) {
+        Integer children=dormitoryMapper.findChildren(fname);
+        if (children!=0){
+            throw new HaveChildrenException("删除中断！该宿舍楼"+fname+"存在子节点！");
+        }
+
+        dormitoryMapper.deleteFloor(fname);
+    }
+
+    @Override
+    public void deleteDormitory(Integer fid, String dname) {
+        dormitoryMapper.deleteDormitory(fid, dname);
+    }
+
+    @Override
+    public void deleteFloors(Integer start, Integer end) {
+        for (int i=start;i<=end;i++){
+            String fname=toChinese(i)+"号楼";
+            deleteFloor(fname);
+        }
+    }
+
+    @Override
+    public void deleteDormitorys(Integer fid, Integer start, Integer end) {
+        for (int i=start;i<=end;i++){
+            deleteDormitory(fid,String.valueOf(i));
+        }
+    }
+
+    /**
+     * 数字转为汉字的处理方法
+     * @param number
+     * @return
+     */
+    private String toChinese(Integer number){
+        String[] NUMBER_ZH=new String[]{"零","一","二","三","四","五","六","七","八","九","十"};
+        if (number<=10){
+            return NUMBER_ZH[number];
+        }else if (number>10 && number<20){
+            return "十"+NUMBER_ZH[Integer.valueOf(String.valueOf(number.toString().charAt(1)))];
+        }else if(number.toString().charAt(1)=='0'){
+            return NUMBER_ZH[number.toString().charAt(0)-'0']+"十";
+        }else{
+            return NUMBER_ZH[number.toString().charAt(0)-'0']+"十"+NUMBER_ZH[Integer.valueOf(String.valueOf(number.toString().charAt(1)))];
+        }
     }
 }

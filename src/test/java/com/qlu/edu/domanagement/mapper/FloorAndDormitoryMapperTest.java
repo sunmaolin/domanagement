@@ -30,4 +30,29 @@ public class FloorAndDormitoryMapperTest {
             System.err.println(dormitory.toString());
         }
     }
+
+    @Test
+    public void insertFloorOrDormitory(){
+        Integer row=dormitoryMapper.insertFloor("五号楼");
+        Integer rows=dormitoryMapper.insertDormitory(5,"101");
+        System.err.println(row+"------"+rows);
+    }
+
+    @Test
+    public void findFloorName(){
+        String fname=dormitoryMapper.findFloorName("一楼");
+        System.err.println(fname==null);
+    }
+
+    @Test
+    public void findDormitoryName(){
+        String dname=dormitoryMapper.findDormitoryName(1,"101");
+        System.err.println(dname);
+    }
+
+    @Test
+    public void findChildren(){
+        Integer children=dormitoryMapper.findChildren("");
+        System.err.println(children);
+    }
 }

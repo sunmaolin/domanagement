@@ -23,6 +23,74 @@
 		ORDER BY
 			did
 	</select>
+
+	<!--查询宿舍楼名是否存在-->
+	<select id="findFloorName" resultType="String">
+		SELECT
+			fname
+		FROM
+			floor
+		WHERE
+			fname=#{fname}
+	</select>
+
+	<!--查询宿舍名是否存在-->
+	<select id="findDormitoryName" resultType="String">
+		SELECT
+			dname
+		FROM
+			dormitory
+		WHERE
+			fid=#{fid} AND dname=#{dname}
+	</select>
+
+	<!--插入宿舍楼-->
+	<insert id="insertFloor">
+		INSERT INTO
+			floor (fname)
+		VALUES (#{fname})
+	</insert>
+
+	<!--插入宿舍-->
+	<insert id="insertDormitory">
+		INSERT INTO
+			dormitory (fid,dname)
+		VALUES
+			(#{fid},#{dname})
+	</insert>
+
+	<!--查询是否存在子节点-->
+	<select id="findChildren" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			dormitory
+		WHERE
+			fid=(
+			SELECT
+				fid
+			FROM
+				floor
+			WHERE
+				fname=#{fname}
+			)
+	</select>
+
+	<!--删除宿舍楼-->
+	<delete id="deleteFloor">
+		DELETE FROM
+			floor
+		WHERE
+			fname=#{fname}
+	</delete>
+
+	<!--删除宿舍-->
+	<delete id="deleteDormitory">
+		DELETE FROM
+			dormitory
+		WHERE
+			fid=#{fid} AND dname=#{dname}
+	</delete>
 </mapper>
 
 

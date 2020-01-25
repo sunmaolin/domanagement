@@ -17,6 +17,11 @@ Ext.define('Index.Main',{
         var me=this;
 
         //动态加载宿舍机构数store
+        /**
+         * 说明：节点root不显示是默认展开，展开加载数据时，如果
+         * 不是root节点展开就将flag设置为1，进行子节点的查询
+         * @type {Ext.data.TreeStore}
+         */
         var treeStore = Ext.create('Ext.data.TreeStore', {
             root:{
                 text:'齐鲁工业大学宿舍',
@@ -83,6 +88,7 @@ Ext.define('Index.Main',{
             layout:'fit',
             items:{
                 xtype:'treepanel',
+                id:'treep',
                 store:treeStore,
                 rootVisible: false
             }
