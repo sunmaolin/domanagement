@@ -21,7 +21,15 @@
 		WHERE
 			fid=#{fid}
 		ORDER BY
+			dname
+	</select>
+
+	<!--查找所有的宿舍id-->
+	<select id="findAllDormitory" resultType="Integer">
+		SELECT
 			did
+		FROM
+			dormitory
 	</select>
 
 	<!--查询宿舍楼名是否存在-->

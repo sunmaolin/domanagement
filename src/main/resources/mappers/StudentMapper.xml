@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.qlu.edu.domanagement.mapper.StudentMapper">
+	<select id="findStudentsByDid" resultType="com.qlu.edu.domanagement.entity.Student">
+		SELECT
+			*
+		FROM
+			student
+		WHERE
+			did=#{did}
+	</select>
+
+	<select id="findRandomDutyByDid" resultType="com.qlu.edu.domanagement.entity.RandomDuty">
+		SELECT
+			*
+		FROM
+			duty
+		WHERE
+			did=#{did}
+	</select>
+
+	<insert id="insertRandomDuty">
+		INSERT INTO
+			duty
+		VALUES (
+			#{did},#{monday},#{tuesday},
+			#{wednesday},#{thursday},#{friday},
+			#{saturday},#{sunday}
+		)
+	</insert>
+
+	<delete id="clearRandomDuty">
+		TRUNCATE TABLE duty
+	</delete>
+</mapper>
+
+
+

@@ -3,7 +3,7 @@
  */
 Ext.define('Index.Main',{
     extend:'Ext.panel.Panel',
-    requires:['Index.Function'],
+    requires:['Index.Function','Index.CenterPanel'],
     xtype:'main',
     id:'main',
     layout:'border',
@@ -79,6 +79,13 @@ Ext.define('Index.Main',{
             html: '<div style="font-size: 25px;text-align: center;margin-top: 5px"><b>齐鲁工业大学宿舍管理系统</b><br>' +
                 '<span style="font-size: 15px">联系电话：010101</span></div>'
         };
+        var center={
+            region: 'center',
+            id:'center',
+            xtype:'tabpanel',
+            layout: 'fit',
+            activeTab:0
+        };
         var west={
             title: '宿舍浏览',
             region: 'west',
@@ -90,7 +97,15 @@ Ext.define('Index.Main',{
                 xtype:'treepanel',
                 id:'treep',
                 store:treeStore,
-                rootVisible: false
+                rootVisible: false,
+                listeners:{
+                    itemclick:function (view,record) {
+                        if(!record.data.parentId){
+                            var centerPanel=Ext.widget('centerPanel',{title:record.data.text,did:record.data.did});
+                            Ext.getCmp('center').add(centerPanel);
+                        }
+                    }
+                }
             }
         };
         var east={
@@ -104,12 +119,7 @@ Ext.define('Index.Main',{
                 xtype:'fun'
             }
         };
-        var center={
-            region: 'center',
-            id:'center',
-            xtype:'tabpanel',
-            layout: 'fit'
-        };
+
         me.add([north,west,east,center]);
     }
 

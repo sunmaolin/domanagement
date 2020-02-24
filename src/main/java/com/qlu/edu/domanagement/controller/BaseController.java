@@ -18,7 +18,7 @@ public abstract class BaseController {
      * @param e 程序运行时的异常
      * @return  主异常信息
      */
-    @ExceptionHandler({ServiceException.class})
+    @ExceptionHandler({ServiceException.class,Exception.class})
     public JsonResult<Void> handleException(Throwable e){
         JsonResult<Void> jr=new JsonResult<>(e);
         return jr;

@@ -4,6 +4,7 @@ import com.qlu.edu.domanagement.entity.Dormitory;
 import com.qlu.edu.domanagement.entity.Floor;
 import org.springframework.stereotype.Repository;
 
+
 /**
  * 宿舍楼与宿舍的持久层接口
  */
@@ -21,6 +22,12 @@ public interface DormitoryMapper {
      * @return
      */
     Dormitory[] findDormitoryByFid(Integer fid);
+
+    /**
+     * 查找所有的宿舍id
+     * @return
+     */
+    Integer[] findAllDormitory();
 
     /**
      * 查询宿舍楼名是否存在
@@ -71,4 +78,5 @@ public interface DormitoryMapper {
      * @param dname
      */
     void deleteDormitory(Integer fid,String dname);
+
 }

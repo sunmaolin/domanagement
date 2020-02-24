@@ -23,6 +23,7 @@ public class LoginInterceptorConfigurer implements WebMvcConfigurer {
         patterns.add("/css/**");
         patterns.add("/images/**");
         patterns.add("/js/**");
+        patterns.add("favicon.ico");
         registry.addInterceptor(interceptor).addPathPatterns("/**").excludePathPatterns(patterns);
     }
 }
