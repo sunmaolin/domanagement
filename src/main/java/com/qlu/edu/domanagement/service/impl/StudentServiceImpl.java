@@ -1,10 +1,12 @@
 package com.qlu.edu.domanagement.service.impl;
 
+import com.qlu.edu.domanagement.entity.Disciplinary;
 import com.qlu.edu.domanagement.entity.RandomDuty;
 import com.qlu.edu.domanagement.entity.Student;
 import com.qlu.edu.domanagement.mapper.DormitoryMapper;
 import com.qlu.edu.domanagement.mapper.StudentMapper;
 import com.qlu.edu.domanagement.service.StudentService;
+import com.qlu.edu.domanagement.service.ex.SidExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -118,5 +120,28 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public RandomDuty findRandomDutyByDid(Integer did) {
         return studentMapper.findRandomDutyByDid(did);
+    }
+
+    @Override
+    public Disciplinary[] findPersonalDisciplinary(String sid) {
+        return studentMapper.findPersonalDisciplinary(sid);
+    }
+
+    @Override
+    public void deleteStudent(String sid) {
+        //删除student表中的数据
+        studentMapper.deleteStudent(sid);
+        //删除perordordisciplinary表中的数据
+        studentMapper.deleteStudentDisciplinary(sid);
+    }
+
+    @Override
+    public void addStudent(Student student, Integer did) {
+        String sid=studentMapper.findSidBySid(student.getSid());
+        if(sid!=null){
+            throw new SidExistException("该学号已存在！请检查");
+        }
+        student.setDid(did);
+        studentMapper.addStudent(student);
     }
 }

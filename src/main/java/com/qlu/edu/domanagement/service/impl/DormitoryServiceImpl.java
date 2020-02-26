@@ -1,7 +1,9 @@
 package com.qlu.edu.domanagement.service.impl;
 
+import com.qlu.edu.domanagement.entity.Disciplinary;
 import com.qlu.edu.domanagement.entity.Dormitory;
 import com.qlu.edu.domanagement.entity.Floor;
+import com.qlu.edu.domanagement.entity.Maintain;
 import com.qlu.edu.domanagement.mapper.DormitoryMapper;
 import com.qlu.edu.domanagement.service.DormitoryService;
 import com.qlu.edu.domanagement.service.ex.DormitoryNameExistException;
@@ -115,6 +117,16 @@ public class DormitoryServiceImpl implements DormitoryService {
         for (int i=start;i<=end;i++){
             deleteDormitory(fid,String.valueOf(i));
         }
+    }
+
+    @Override
+    public Disciplinary[] findDormitoryDisciplinary(Integer did) {
+        return dormitoryMapper.findDormitoryDisciplinary(did);
+    }
+
+    @Override
+    public Maintain[] findDormitoryMaintain(Integer did) {
+        return dormitoryMapper.findDormitoryMaintain(did);
     }
 
     /**

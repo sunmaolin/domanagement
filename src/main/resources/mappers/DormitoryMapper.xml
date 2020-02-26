@@ -52,21 +52,6 @@
 			fid=#{fid} AND dname=#{dname}
 	</select>
 
-	<!--插入宿舍楼-->
-	<insert id="insertFloor">
-		INSERT INTO
-			floor (fname)
-		VALUES (#{fname})
-	</insert>
-
-	<!--插入宿舍-->
-	<insert id="insertDormitory">
-		INSERT INTO
-			dormitory (fid,dname)
-		VALUES
-			(#{fid},#{dname})
-	</insert>
-
 	<!--查询是否存在子节点-->
 	<select id="findChildren" resultType="Integer">
 		SELECT
@@ -83,6 +68,41 @@
 				fname=#{fname}
 			)
 	</select>
+
+	<!--查询宿舍违纪信息-->
+	<select id="findDormitoryDisciplinary" resultType="com.qlu.edu.domanagement.entity.Disciplinary">
+		SELECT
+			*
+		FROM
+			perordordisciplinary
+		WHERE
+			did=#{did}
+	</select>
+
+	<!--查询宿舍维修信息-->
+	<select id="findDormitoryMaintain" resultType="com.qlu.edu.domanagement.entity.Maintain">
+		SELECT
+			*
+		FROM
+			maintain
+		WHERE
+			did=#{did}
+	</select>
+
+	<!--插入宿舍楼-->
+	<insert id="insertFloor">
+		INSERT INTO
+			floor (fname)
+		VALUES (#{fname})
+	</insert>
+
+	<!--插入宿舍-->
+	<insert id="insertDormitory">
+		INSERT INTO
+			dormitory (fid,dname)
+		VALUES
+			(#{fid},#{dname})
+	</insert>
 
 	<!--删除宿舍楼-->
 	<delete id="deleteFloor">

@@ -34,4 +34,26 @@ public class StudentMapperTest {
         randomDuty.setSunday("shudshcusd");
         studentMapper.insertRandomDuty(randomDuty);
     }
+
+    @Test
+    public void findPersonalDisciplinary(){
+        System.err.println(studentMapper.findPersonalDisciplinary("201603121128")[0].toString());
+    }
+
+    @Test
+    public void addStudent(){
+        try{
+            Student student=new Student();
+            student.setDid(1);
+            student.setSid("20160312128");
+            student.setSclass("sdsa");
+            student.setSname("dehwudhc");
+            student.setSphone("deihduhn");
+            student.setSprofessional("dewhcydg");
+            student.setSsex("dewd");
+            System.err.println(studentMapper.findSidBySid(student.getSid()));
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
 }

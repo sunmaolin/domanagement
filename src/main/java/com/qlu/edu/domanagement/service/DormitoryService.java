@@ -1,5 +1,8 @@
 package com.qlu.edu.domanagement.service;
 
+import com.qlu.edu.domanagement.entity.Disciplinary;
+import com.qlu.edu.domanagement.entity.Maintain;
+
 import java.util.List;
 
 /**
@@ -70,4 +73,17 @@ public interface DormitoryService {
      * @param end
      */
     void deleteDormitorys(Integer fid,Integer start,Integer end);
+
+    /**
+     * 查找宿舍违纪内容
+     * @return
+     */
+    Disciplinary[] findDormitoryDisciplinary(Integer did);
+
+    /**
+     * 查找宿舍维修记录
+     * @param did
+     * @return
+     */
+    Maintain[] findDormitoryMaintain(Integer did);
 }

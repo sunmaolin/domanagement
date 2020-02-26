@@ -1,8 +1,11 @@
 package com.qlu.edu.domanagement.controller;
 
+import com.qlu.edu.domanagement.entity.Disciplinary;
+import com.qlu.edu.domanagement.entity.Maintain;
 import com.qlu.edu.domanagement.service.DormitoryService;
 import com.qlu.edu.domanagement.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -60,5 +63,17 @@ public class DormitoryController extends BaseController {
             dormitoryService.deleteDormitorys(fid, start, end);
         }
         return new JsonResult(OK);
+    }
+
+    @RequestMapping("findDormitoryDisciplinary/{did}")
+    public JsonResult<Disciplinary[]>  findDormitoryDisciplinary(@PathVariable("did")Integer did){
+        Disciplinary[] disciplinaries=dormitoryService.findDormitoryDisciplinary(did);
+        return new JsonResult<>(OK,disciplinaries);
+    }
+
+    @RequestMapping("findDormitoryMaintain/{did}")
+    public JsonResult<Maintain[]> findDormitoryMaintain(@PathVariable("did")Integer did){
+        Maintain[] maintains = dormitoryService.findDormitoryMaintain(did);
+        return new JsonResult<>(OK,maintains);
     }
 }

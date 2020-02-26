@@ -1,5 +1,6 @@
 package com.qlu.edu.domanagement.service;
 
+import com.qlu.edu.domanagement.entity.Disciplinary;
 import com.qlu.edu.domanagement.entity.RandomDuty;
 import com.qlu.edu.domanagement.entity.Student;
 
@@ -27,4 +28,24 @@ public interface StudentService {
      * @return
      */
     RandomDuty findRandomDutyByDid(Integer did);
+
+    /**
+     * 查找学生的个人违纪记录
+     * @param sid
+     * @return
+     */
+    Disciplinary[] findPersonalDisciplinary(String sid);
+
+    /**
+     * 根据sid删除学生
+     * @param sid
+     */
+    void deleteStudent(String sid);
+
+    /**
+     * 添加学生
+     * @param student
+     * @param did
+     */
+    void addStudent(Student student,Integer did);
 }

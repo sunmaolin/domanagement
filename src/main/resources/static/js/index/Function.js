@@ -22,6 +22,11 @@ Ext.define('Index.Function',{
     loadComp:function(){
         var me=this;
         var items=[{
+            text:'学生批量操作',
+            handler:function () {
+                Ext.Msg.alert('提示信息','待开发');
+            }
+        },{
             text:'生成周值日表',
             handler:function () {
                me.isControl('',function(){
@@ -31,7 +36,7 @@ Ext.define('Index.Function',{
                        success:function (response) {
                            if(Ext.decode(response.responseText).state){
                                wait.close();
-                               Ext.Msg.alert('提示信息','生成值日表成功！');
+                               Ext.Msg.alert('提示信息','生成值日表成功！请重新刷新页面！');
                            };
                        }
                    });

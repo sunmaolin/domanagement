@@ -1,7 +1,6 @@
 package com.qlu.edu.domanagement.entity;
 
 public class Student {
-    private Integer fid;
     private Integer did;
     private String sid;
     private String sname;
@@ -9,14 +8,6 @@ public class Student {
     private String sphone;
     private String sprofessional;
     private String sclass;
-
-    public Integer getFid() {
-        return fid;
-    }
-
-    public void setFid(Integer fid) {
-        this.fid = fid;
-    }
 
     public Integer getDid() {
         return did;
@@ -77,8 +68,7 @@ public class Student {
     @Override
     public String toString() {
         return "Student{" +
-                "fid=" + fid +
-                ", did=" + did +
+                "did=" + did +
                 ", sid='" + sid + '\'' +
                 ", sname='" + sname + '\'' +
                 ", ssex='" + ssex + '\'' +

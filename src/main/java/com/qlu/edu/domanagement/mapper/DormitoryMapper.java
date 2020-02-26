@@ -1,7 +1,9 @@
 package com.qlu.edu.domanagement.mapper;
 
+import com.qlu.edu.domanagement.entity.Disciplinary;
 import com.qlu.edu.domanagement.entity.Dormitory;
 import com.qlu.edu.domanagement.entity.Floor;
+import com.qlu.edu.domanagement.entity.Maintain;
 import org.springframework.stereotype.Repository;
 
 
@@ -79,4 +81,17 @@ public interface DormitoryMapper {
      */
     void deleteDormitory(Integer fid,String dname);
 
+    /**
+     * 查询宿舍违纪信息
+     * @param did
+     * @return
+     */
+    Disciplinary[] findDormitoryDisciplinary(Integer did);
+
+    /**
+     * 查询宿舍维修记录
+     * @param did
+     * @return
+     */
+    Maintain[] findDormitoryMaintain(Integer did);
 }

@@ -1,8 +1,12 @@
+/**
+ * 宿舍值日表设计
+ */
 Ext.define('Index.RandomDutyPanel', {
     extend: 'Ext.container.Container',
     xtype: 'randomDutyPanel',
     did:null,
-    margin:'5 0',
+    margin:'5 0 0 0',
+    layout:'fit',
     initComponent: function () {
         var me = this;
         me.callParent();
@@ -31,7 +35,8 @@ Ext.define('Index.RandomDutyPanel', {
         var me=this;
         me.add(Ext.create('Ext.grid.Panel',{
             title:'周值日表',
-            width:600,
+            width:700,
+            height:72,
             columns:[
                 {header:'周一',dataIndex:'monday'},
                 {header:'周二',dataIndex:'tuesday'},

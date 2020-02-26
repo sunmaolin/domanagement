@@ -1,7 +1,10 @@
 package com.qlu.edu.domanagement.entity;
 
+/**
+ * 宿舍值日表的实体类
+ */
 public class RandomDuty {
-    private Integer did;
+    private Integer did;//宿舍id
     private String monday;
     private String Tuesday;
     private String Wednesday;

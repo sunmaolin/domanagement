@@ -84,14 +84,16 @@ Ext.define('Index.Main',{
             id:'center',
             xtype:'tabpanel',
             layout: 'fit',
-            activeTab:0
+            scroll:true,
+            activeTab:0,
+            bodyStyle:'background-image:url(/images/qlu.jpg);background-repeat:no-repeat;background-size:100% 100%'
         };
         var west={
             title: '宿舍浏览',
             region: 'west',
             width: 180,
             split: true,
-            collapsible: true,
+            // collapsible: true,//设置为可折叠
             layout:'fit',
             items:{
                 xtype:'treepanel',
@@ -101,6 +103,7 @@ Ext.define('Index.Main',{
                 listeners:{
                     itemclick:function (view,record) {
                         if(!record.data.parentId){
+                            //TODO 拼接宿舍名加楼号
                             var centerPanel=Ext.widget('centerPanel',{title:record.data.text,did:record.data.did});
                             Ext.getCmp('center').add(centerPanel);
                         }

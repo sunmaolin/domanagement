@@ -20,6 +20,24 @@
 			did=#{did}
 	</select>
 
+	<select id="findPersonalDisciplinary" resultType="com.qlu.edu.domanagement.entity.Disciplinary">
+		SELECT
+			*
+		FROM
+			perordordisciplinary
+		WHERE
+			sid=#{sid}
+	</select>
+
+	<select id="findSidBySid" resultType="java.lang.String">
+		SELECT
+			sid
+		FROM
+			student
+		WHERE
+			sid=#{sid}
+	</select>
+
 	<insert id="insertRandomDuty">
 		INSERT INTO
 			duty
@@ -30,8 +48,30 @@
 		)
 	</insert>
 
+	<insert id="addStudent">
+		INSERT INTO
+			student
+		VALUE (
+			#{did},#{sid},#{sname},#{ssex},#{sphone},#{sprofessional},#{sclass}
+		)
+	</insert>
+
 	<delete id="clearRandomDuty">
 		TRUNCATE TABLE duty
+	</delete>
+
+	<delete id="deleteStudent">
+		DELETE FROM
+			student
+		WHERE
+			sid=#{sid}
+	</delete>
+
+	<delete id="deleteStudentDisciplinary">
+		DELETE FROM
+			perordordisciplinary
+		WHERE
+			sid=#{sid}
 	</delete>
 </mapper>
 

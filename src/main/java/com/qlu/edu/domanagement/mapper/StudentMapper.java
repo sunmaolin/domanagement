@@ -1,5 +1,6 @@
 package com.qlu.edu.domanagement.mapper;
 
+import com.qlu.edu.domanagement.entity.Disciplinary;
 import com.qlu.edu.domanagement.entity.RandomDuty;
 import com.qlu.edu.domanagement.entity.Student;
 import org.springframework.stereotype.Repository;
@@ -31,4 +32,36 @@ public interface StudentMapper {
      * @return
      */
     RandomDuty findRandomDutyByDid(Integer did);
+
+    /**
+     * 查找学生的个人违纪信息
+     * @param sid
+     * @return
+     */
+    Disciplinary[] findPersonalDisciplinary(String sid);
+
+    /**
+     * 删除学生表中的学生
+     * @param sid
+     */
+    void deleteStudent(String sid);
+
+    /**
+     * 删除违纪表中该学生的违纪
+     * @param sid
+     */
+    void deleteStudentDisciplinary(String sid);
+
+    /**
+     * 根据学号查找判断是否存在
+     * @param sid
+     * @return
+     */
+    String findSidBySid(String sid);
+
+    /**
+     * 添加学生
+     * @param student
+     */
+    void addStudent(Student student);
 }
