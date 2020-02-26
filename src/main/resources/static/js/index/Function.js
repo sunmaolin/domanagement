@@ -22,6 +22,8 @@ Ext.define('Index.Function',{
     loadComp:function(){
         var me=this;
         var items=[{
+            text:'宿舍及个人违纪记录'
+        },{
             text:'学生批量操作',
             handler:function () {
                 Ext.Msg.alert('提示信息','待开发');

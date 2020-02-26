@@ -9,9 +9,9 @@ Ext.define('Index.CenterPanel', {
     },
     did:null,
     autoScroll:true,
-    id:'centerPanel'+this.did,
     initComponent: function () {
         var me = this;
+        me.id='centerPanel'+me.did;
         me.callParent();
         me.loadComponent();
     },
