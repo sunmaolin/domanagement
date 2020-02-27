@@ -9,9 +9,13 @@ import com.qlu.edu.domanagement.service.DormitoryService;
 import com.qlu.edu.domanagement.service.ex.DormitoryNameExistException;
 import com.qlu.edu.domanagement.service.ex.FloorNameExistException;
 import com.qlu.edu.domanagement.service.ex.HaveChildrenException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -127,6 +131,53 @@ public class DormitoryServiceImpl implements DormitoryService {
     @Override
     public Maintain[] findDormitoryMaintain(Integer did) {
         return dormitoryMapper.findDormitoryMaintain(did);
+    }
+
+    @Override
+    public Floor[] findAllFloor() {
+        return dormitoryMapper.findFloor();
+    }
+
+    @Override
+    public Dormitory[] findDormitoyByFid(Integer fid) {
+        return dormitoryMapper.findDormitoryByFid(fid);
+    }
+
+    @Override
+    public List findAllDormitoryDisciplinary() {
+        List all=new ArrayList();
+        try{
+            //查找所有的违纪信息
+            Disciplinary[] disciplinaries=dormitoryMapper.findAllDormitoryDisciplinary();
+            for (Disciplinary disciplinary:disciplinaries){
+                //封装数据的map
+                Map<String,Object> data=new HashMap();
+                Class dis=Class.forName("com.qlu.edu.domanagement.entity.Disciplinary");
+                Field[] fields = dis.getDeclaredFields();
+                for (Field field : fields){
+                    data.put(field.getName(),"");
+                }
+                for (Map.Entry entry:data.entrySet()){
+                    String name=(String)entry.getKey();
+                    //创建一属性描述器,将属性描述器映射到Disciplinary类中
+                    PropertyDescriptor pd = new PropertyDescriptor(name, Disciplinary.class);
+                    //得到getter属性
+                    Method getter = pd.getReadMethod();
+                    //将方法反射到Disciplinary类中,读出属性的值
+                    Object value = getter.invoke(disciplinary,null);
+                    data.put(name,value);
+                }
+                //处理完查出来的对象在处理宿舍楼和宿舍
+                Dormitory dormitory = dormitoryMapper.findDormitoryByDid((Integer) data.get("did"));
+                data.put("dname",dormitory.getDname());
+                Floor floor = dormitoryMapper.findFloorByFid(dormitory.getFid());
+                data.put("fname",floor.getFname());
+                all.add(data);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return all;
     }
 
     /**

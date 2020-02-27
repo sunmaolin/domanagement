@@ -1,16 +1,17 @@
 package com.qlu.edu.domanagement.controller;
 
 import com.qlu.edu.domanagement.entity.Disciplinary;
+import com.qlu.edu.domanagement.entity.Dormitory;
+import com.qlu.edu.domanagement.entity.Floor;
 import com.qlu.edu.domanagement.entity.Maintain;
 import com.qlu.edu.domanagement.service.DormitoryService;
 import com.qlu.edu.domanagement.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("dormitory")
@@ -75,5 +76,26 @@ public class DormitoryController extends BaseController {
     public JsonResult<Maintain[]> findDormitoryMaintain(@PathVariable("did")Integer did){
         Maintain[] maintains = dormitoryService.findDormitoryMaintain(did);
         return new JsonResult<>(OK,maintains);
+    }
+
+    @GetMapping("findAllFloor")
+    public JsonResult<Floor[]> findAllFloor(){
+        Floor[] floors = dormitoryService.findAllFloor();
+        return new JsonResult<>(OK,floors);
+    }
+
+    @GetMapping("findDormitoryByFid")
+    public JsonResult<Dormitory[]> findDormitory(Integer fid){
+        if(fid==null){
+            return new JsonResult<>(OK);
+        }
+        Dormitory[] dormitories = dormitoryService.findDormitoyByFid(fid);
+        return new JsonResult<>(OK,dormitories);
+    }
+
+    @GetMapping("findAllDormitoryDisciplinary")
+    public JsonResult<List> findAllDormitoryDisciplinary(){
+        List data=dormitoryService.findAllDormitoryDisciplinary();
+        return new JsonResult<>(OK,data);
     }
 }

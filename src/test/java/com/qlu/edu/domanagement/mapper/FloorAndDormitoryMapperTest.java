@@ -75,4 +75,12 @@ public class FloorAndDormitoryMapperTest {
         System.err.println(maintains[0].toString());
     }
 
+    @Test
+    public void findAllDormitoryDiscrlinary(){
+        Disciplinary[] disciplinaries=dormitoryMapper.findAllDormitoryDisciplinary();
+        for (int i=0;i<disciplinaries.length;i++){
+            System.out.println(disciplinaries[i].toString());
+        }
+    }
+
 }

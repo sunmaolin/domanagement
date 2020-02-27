@@ -1,9 +1,12 @@
 package com.qlu.edu.domanagement.service;
 
 import com.qlu.edu.domanagement.entity.Disciplinary;
+import com.qlu.edu.domanagement.entity.Dormitory;
+import com.qlu.edu.domanagement.entity.Floor;
 import com.qlu.edu.domanagement.entity.Maintain;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 处理宿舍楼与宿舍的相关业务层接口
@@ -86,4 +89,24 @@ public interface DormitoryService {
      * @return
      */
     Maintain[] findDormitoryMaintain(Integer did);
+
+    /**
+     * 查找所有的宿舍楼
+     * @return
+     */
+    Floor[] findAllFloor();
+
+    /**
+     * 根据宿舍楼id查找所有宿舍
+     * @param fid
+     * @return
+     */
+    Dormitory[] findDormitoyByFid(Integer fid);
+
+    /**
+     * 查找所有宿舍的违纪信息
+     * @return
+     */
+    List findAllDormitoryDisciplinary();
+
 }

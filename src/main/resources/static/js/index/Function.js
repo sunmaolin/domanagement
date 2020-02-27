@@ -3,7 +3,7 @@
  */
 Ext.define('Index.Function',{
     extend:'Ext.menu.Menu',
-    requires:['Index.AddOrDeleteFloor'],
+    requires:['Index.AddOrDeleteFloor','Index.DisciplinaryRecordWindow'],
     xtype:'fun',
     id:'fun',
     width:180,
@@ -22,7 +22,26 @@ Ext.define('Index.Function',{
     loadComp:function(){
         var me=this;
         var items=[{
-            text:'宿舍及个人违纪记录'
+            text:'宿舍维修登记',
+            handler:function () {
+                alert('宿舍维修登记');
+            }
+        },{
+            text:'违纪记录',
+            menu:Ext.create('Ext.menu.Menu',{
+                plain:true,
+                items:[
+                    {text:'个人违纪记录',handler:function () {
+                            alert(1);
+                        }},
+                    {text:'宿舍违纪记录',handler:function () {
+                            Ext.create('Index.DisciplinaryRecordWindow',{title:'宿舍违纪记录',flag:1,url: '/dormitory/findAllDormitoryDisciplinary'}).show();
+                        }},
+                    {text:'卫生查询记录',handler:function() {
+                            Ext.create('Index.DisciplinaryRecordWindow',{title:'卫生查询记录',flag:2,url: '/student/findAllStudentDisciplinary'}).show();
+                        }}
+                ]
+            })
         },{
             text:'学生批量操作',
             handler:function () {

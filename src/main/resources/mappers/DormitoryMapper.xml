@@ -25,7 +25,7 @@
 	</select>
 
 	<!--查找所有的宿舍id-->
-	<select id="findAllDormitory" resultType="Integer">
+	<select id="findAllDormitoryId" resultType="Integer">
 		SELECT
 			did
 		FROM
@@ -87,6 +87,36 @@
 			maintain
 		WHERE
 			did=#{did}
+	</select>
+
+	<!--查找所有宿舍的违纪信息-->
+	<select id="findAllDormitoryDisciplinary" resultType="com.qlu.edu.domanagement.entity.Disciplinary">
+		SELECT
+			*
+		FROM
+			perordordisciplinary
+		WHERE
+			did IS NOT NULL
+	</select>
+
+	<!--根据did查找宿舍-->
+	<select id="findDormitoryByDid" resultType="com.qlu.edu.domanagement.entity.Dormitory">
+		SELECT
+			*
+		FROM
+			dormitory
+		WHERE
+			did=#{did}
+	</select>
+
+	<!--根据did查找宿舍楼-->
+	<select id="findFloorByFid" resultType="com.qlu.edu.domanagement.entity.Floor">
+		SELECT
+			*
+		FROM
+			floor
+		WHERE
+			fid=#{fid}
 	</select>
 
 	<!--插入宿舍楼-->

@@ -65,6 +65,8 @@ Ext.define('Index.AddStudent', {
                         form.submit({
                            success:function (form,action) {
                                Ext.Msg.alert('提示信息','添加成功');
+                               //清空文本框
+                               form.reset();
                                Ext.getCmp('studentGrid'+me.did).getStore().load();
                            } ,
                             failure:function (form, action) {

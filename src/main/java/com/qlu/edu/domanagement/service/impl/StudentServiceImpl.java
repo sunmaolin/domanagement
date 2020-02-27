@@ -36,7 +36,7 @@ public class StudentServiceImpl implements StudentService {
         studentMapper.clearRandomDuty();
 
         //拿到所有宿舍id
-        Integer[] dids=dormitoryMapper.findAllDormitory();
+        Integer[] dids=dormitoryMapper.findAllDormitoryId();
         //循坏每一个宿舍生成值日表
         for (int i=0;i<dids.length;i++){
             //new一个新的值日表实体类

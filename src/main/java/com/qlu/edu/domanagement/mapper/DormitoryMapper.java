@@ -29,7 +29,7 @@ public interface DormitoryMapper {
      * 查找所有的宿舍id
      * @return
      */
-    Integer[] findAllDormitory();
+    Integer[] findAllDormitoryId();
 
     /**
      * 查询宿舍楼名是否存在
@@ -94,4 +94,25 @@ public interface DormitoryMapper {
      * @return
      */
     Maintain[] findDormitoryMaintain(Integer did);
+
+    /**
+     * 查找所有宿舍的违纪信息
+     * @return
+     */
+    Disciplinary[] findAllDormitoryDisciplinary();
+
+    /**
+     * 根据did查找宿舍
+     * @param did
+     * @return
+     */
+    Dormitory findDormitoryByDid(Integer did);
+
+    /**
+     * 根据fid查找宿舍楼
+     * @param fid
+     * @return
+     */
+    Floor findFloorByFid(Integer fid);
+
 }
