@@ -5,6 +5,7 @@ import com.qlu.edu.domanagement.entity.RandomDuty;
 import com.qlu.edu.domanagement.entity.Student;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 处理学生相关功能的业务层接口
@@ -48,4 +49,11 @@ public interface StudentService {
      * @param did
      */
     void addStudent(Student student,Integer did);
+
+    /**
+     * 查找学生的违纪情况
+     * @param sanitation  true卫生违纪  false个人违纪
+     * @return
+     */
+    Map[] findAllDisciplinary(boolean sanitation);
 }

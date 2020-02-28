@@ -27,7 +27,7 @@ Ext.define('Index.DisciplinaryRecordWindow', {
                }
            }
         });
-
+        //加载宿舍store
         me.dormitoryStore=new Ext.create('Ext.data.Store',{
             fields:['did','fid','dname'],
             proxy:{
@@ -43,11 +43,27 @@ Ext.define('Index.DisciplinaryRecordWindow', {
                 }
             }
         });
+        if (me.flag == 0) {
+            //学生store
+            me.studentStore=new Ext.create('Ext.data.Store',{
+                fields:['sid','sname'],
+                proxy:{
+                    type:'ajax',
+                    url:'/student/find/'+null,
+                    method:'GET',
+                    reader: {
+                        type: 'json',
+                        root: 'data'
+                    }
+                }
+            });
+        }
         //违纪记录store
         me.disciplinaryStore=Ext.create('Ext.data.Store',{
-            fields:['pid','fname','dname','sid','content','createUser','createTime','image'],
+            fields:['pid','fname','dname','sname','sid','content','createUser','createTime','image'],
             proxy: {
                 type: 'ajax',
+                //给俩个地址的是用另一种方法解决问题
                 url:me.url,
                 method:'GET',
                 reader: {
@@ -75,7 +91,7 @@ Ext.define('Index.DisciplinaryRecordWindow', {
                change:function (field,newValue) {
                    //实现二级联动
                    me.dormitoryStore.getProxy().extraParams={fid:newValue};
-                   me.dormitoryStore.load();
+                   // me.dormitoryStore.load();
                }
            }
         });
@@ -90,7 +106,29 @@ Ext.define('Index.DisciplinaryRecordWindow', {
             displayField:'dname',
             valueField:'did',
             emptyText:'请选择宿舍',
-            name:'did'
+            name:'did',
+            listeners:{
+                change:function (field,newValue) {
+                    //实现二级联动,如果是个人违纪面板才执行
+                    if (me.flag == 0) {
+                        me.studentStore.getProxy().url="/student/find/"+newValue;
+                        // me.studentStore.load();
+                    }
+                }
+            }
+        });
+        //学生下拉框
+        var studentComb=Ext.create('Ext.form.ComboBox',{
+            fieldLabel:'学生',
+            labelWidth:40,
+            width:150,
+            margin:'0 0 0 20',
+            editable:false,
+            store:me.studentStore,
+            displayField:'sname',
+            valueField:'sid',
+            emptyText:'请选择学生',
+            name:'sid'
         });
         //违纪内容
         var disciplinaryContent=Ext.widget('textareafield',{
@@ -98,7 +136,7 @@ Ext.define('Index.DisciplinaryRecordWindow', {
            labelWidth:60,
            width:310,
            height:100,
-           margin:'10 0 0 0',
+           margin:me.flag==0?'10 0 0 80':'10 0 0 0',
            name:'content'
         });
         //文件上传
@@ -107,15 +145,31 @@ Ext.define('Index.DisciplinaryRecordWindow', {
             fieldLabel:'违纪照片',
             labelWidth:60,
             width:250,
-            margin:'10 0 0 0',
+            margin:me.flag==0?'10 0 0 80':'10 0 0 0',
             buttonText:'选择图片'
         });
         //确定按钮
         var ensureButton=Ext.create('Ext.button.Button',{
             text:'确定',
-            margin:'0 30 0 100',
+            margin:me.flag==0?'0 30 0 180':'0 30 0 100',
             handler:function () {
-
+                var form = this.up('form').getForm();
+                if(form.isValid()){
+                    form.submit({
+                        url:me.flag==1?'/dormitory':'/student'+'/submitDisciplinaryRecord',
+                        params:{
+                          flag:me.flag
+                        },
+                        success:function (form, action) {
+                            Ext.Msg.alert('提示信息','添加成功！');
+                            form.reset();
+                            //TODO 刷新表格数据
+                        },
+                        failure:function (form, action) {
+                            Ext.Msg.alert('提示信息',action.result.message);
+                        }
+                    });
+                }
             }
         });
         //删除按钮
@@ -128,13 +182,13 @@ Ext.define('Index.DisciplinaryRecordWindow', {
         //表单
         var formPanel=Ext.create('Ext.form.Panel',{
             layout:'vbox',
-            bodyPadding:'10 0 0 120',
+            bodyPadding:me.flag==0?'10 0 0 40':'10 0 0 120',
             width:605,
             height:250,
             items:[{
                 border:0,
                 layout:'hbox',
-                items:[floorComb,dormitoryComb]
+                items:[floorComb,dormitoryComb,me.flag==0?studentComb:null]
             },disciplinaryContent,fileUpLoad,{
                 border:0,
                 layout:'hbox',
@@ -149,26 +203,74 @@ Ext.define('Index.DisciplinaryRecordWindow', {
 
         me.add([formPanel]);
 
-        me.add(Ext.create('Ext.grid.Panel',{
-            scroll:true,
-            height:318,
-            width:600,
-            columns:[
-                {header:'宿舍楼',dataIndex:'fname',width:80},
-                {header:'宿舍',dataIndex:'dname',width:80},
-                {header:'违纪内容',dataIndex:'content',width:120},
-                {header:'违纪时间',dataIndex:'createTime'},
-                {header:'记录人',dataIndex:'createUser'},
-                {header:'图片',renderer:function (value,record,item) {
-                        if (item.data.image){
-                            return '<a href="http://localhost:8080/images/'+item.data.image+'" target="_blank">查看违纪图片</a>';
-                        } else {
-                            return '<a>无违纪图片</a>';
+        if(me.flag==1){
+            me.add(Ext.create('Ext.grid.Panel',{
+                scroll:true,
+                height:318,
+                width:600,
+                columns:[
+                    {header:'宿舍楼',dataIndex:'fname',width:80},
+                    {header:'宿舍',dataIndex:'dname',width:80},
+                    {header:'违纪内容',dataIndex:'content',width:120},
+                    {header:'违纪时间',dataIndex:'createTime'},
+                    {header:'记录人',dataIndex:'createUser'},
+                    {header:'图片',renderer:function (value,record,item) {
+                            if (item.data.image){
+                                return '<a href="http://localhost:8080/images/'+item.data.image+'" target="_blank">查看违纪图片</a>';
+                            } else {
+                                return '<a>无违纪图片</a>';
+                            }
                         }
                     }
-                }
-            ],
-            store:me.disciplinaryStore
-        }));
+                ],
+                store:me.disciplinaryStore
+            }));
+        }else if(me.flag==2){
+            me.add(Ext.create('Ext.grid.Panel',{
+                scroll:true,
+                height:318,
+                width:600,
+                columns:[
+                    {header:'宿舍楼',dataIndex:'fname',width:70},
+                    {header:'宿舍',dataIndex:'dname',width:70},
+                    {header:'值日生',dataIndex:'sname',width:70},
+                    {header:'违纪内容',dataIndex:'content',width:115},
+                    {header:'违纪时间',dataIndex:'createTime'},
+                    {header:'记录人',dataIndex:'createUser',width:60},
+                    {header:'图片',renderer:function (value,record,item) {
+                            if (item.data.image){
+                                return '<a href="http://localhost:8080/images/'+item.data.image+'" target="_blank">查看违纪图片</a>';
+                            } else {
+                                return '<a>无违纪图片</a>';
+                            }
+                        }
+                    }
+                ],
+                store:me.disciplinaryStore
+            }));
+        }else if (me.flag == 0) {
+            me.add(Ext.create('Ext.grid.Panel',{
+                scroll:true,
+                height:318,
+                width:600,
+                columns:[
+                    {header:'宿舍楼',dataIndex:'fname',width:70},
+                    {header:'宿舍',dataIndex:'dname',width:70},
+                    {header:'违纪人',dataIndex:'sname',width:70},
+                    {header:'违纪内容',dataIndex:'content',width:115},
+                    {header:'违纪时间',dataIndex:'createTime'},
+                    {header:'记录人',dataIndex:'createUser',width:60},
+                    {header:'图片',renderer:function (value,record,item) {
+                            if (item.data.image){
+                                return '<a href="http://localhost:8080/images/'+item.data.image+'" target="_blank">查看违纪图片</a>';
+                            } else {
+                                return '<a>无违纪图片</a>';
+                            }
+                        }
+                    }
+                ],
+                store:me.disciplinaryStore
+            }));
+        }
     }
 });

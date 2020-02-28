@@ -18,6 +18,9 @@ public class StudentController extends BaseController {
 
     @RequestMapping("find/{did}")
     public JsonResult<Student> findStudentsByDid(@PathVariable("did")Integer did){
+        if (did==null){
+            return new JsonResult<>(OK);
+        }
         Student[] students=studentService.findStudentsByDid(did);
         return new JsonResult(OK,students);
     }
@@ -56,5 +59,11 @@ public class StudentController extends BaseController {
         data.put("success",true);
         data.put("state",OK);
         return data;
+    }
+
+    @GetMapping("/findAllStudentDisciplinary/{sanitation}")
+    public JsonResult<Map[]> findAllStudentDisciplinary(@PathVariable("sanitation") boolean sanitation){
+        Map[] data = studentService.findAllDisciplinary(sanitation);
+        return new JsonResult<>(OK,data);
     }
 }

@@ -11,6 +11,7 @@ Ext.define('Index.CenterPanel', {
     autoScroll:true,
     initComponent: function () {
         var me = this;
+        //TODO 点击俩次相同的宿舍，id也就相同了，需要处理
         me.id='centerPanel'+me.did;
         me.callParent();
         me.loadComponent();

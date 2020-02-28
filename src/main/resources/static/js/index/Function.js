@@ -32,13 +32,13 @@ Ext.define('Index.Function',{
                 plain:true,
                 items:[
                     {text:'个人违纪记录',handler:function () {
-                            alert(1);
+                            Ext.create('Index.DisciplinaryRecordWindow',{title:'个人违纪记录',flag:0,url:'/student/findAllStudentDisciplinary/false'}).show();
                         }},
                     {text:'宿舍违纪记录',handler:function () {
                             Ext.create('Index.DisciplinaryRecordWindow',{title:'宿舍违纪记录',flag:1,url: '/dormitory/findAllDormitoryDisciplinary'}).show();
                         }},
                     {text:'卫生查询记录',handler:function() {
-                            Ext.create('Index.DisciplinaryRecordWindow',{title:'卫生查询记录',flag:2,url: '/student/findAllStudentDisciplinary'}).show();
+                            Ext.create('Index.DisciplinaryRecordWindow',{title:'卫生查询记录',flag:2,url: '/student/findAllStudentDisciplinary/true'}).show();
                         }}
                 ]
             })

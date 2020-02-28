@@ -38,6 +38,15 @@
 			sid=#{sid}
 	</select>
 
+	<select id="findStudentAllDisciplinary" resultType="java.util.Map">
+		SELECT
+			*
+		FROM
+			perordordisciplinary
+		WHERE
+			sanitation = #{sanitation}
+	</select>
+
 	<insert id="insertRandomDuty">
 		INSERT INTO
 			duty
@@ -47,6 +56,15 @@
 			#{saturday},#{sunday}
 		)
 	</insert>
+
+	<select id="findStudentBySid" resultType="com.qlu.edu.domanagement.entity.Student">
+		SELECT
+			*
+		FROM
+			student
+		WHERE
+			sid=#{sid}
+	</select>
 
 	<insert id="addStudent">
 		INSERT INTO

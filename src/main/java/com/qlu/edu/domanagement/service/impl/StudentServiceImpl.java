@@ -1,8 +1,6 @@
 package com.qlu.edu.domanagement.service.impl;
 
-import com.qlu.edu.domanagement.entity.Disciplinary;
-import com.qlu.edu.domanagement.entity.RandomDuty;
-import com.qlu.edu.domanagement.entity.Student;
+import com.qlu.edu.domanagement.entity.*;
 import com.qlu.edu.domanagement.mapper.DormitoryMapper;
 import com.qlu.edu.domanagement.mapper.StudentMapper;
 import com.qlu.edu.domanagement.service.StudentService;
@@ -13,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -143,5 +142,26 @@ public class StudentServiceImpl implements StudentService {
         }
         student.setDid(did);
         studentMapper.addStudent(student);
+    }
+
+    @Override
+    public Map[] findAllDisciplinary(boolean sanitation) {
+        Map[] map=studentMapper.findStudentAllDisciplinary(sanitation);
+        for (Map data:map){
+            String sid = (String)data.get("sid");
+            //根据学号查找学生
+            Student student=studentMapper.findStudentBySid(sid);
+            //将学生名放到data中
+            data.put("sname",student.getSname());
+            Integer did=student.getDid();
+            Dormitory dormitory=dormitoryMapper.findDormitoryByDid(did);
+            //将宿舍名放到该data中
+            data.put("dname",dormitory.getDname());
+            Integer fid=dormitory.getFid();
+            Floor floor=dormitoryMapper.findFloorByFid(fid);
+            //将宿舍楼名放到该data中
+            data.put("fname",floor.getFname());
+        }
+        return map;
     }
 }

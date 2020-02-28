@@ -5,6 +5,9 @@ import com.qlu.edu.domanagement.entity.RandomDuty;
 import com.qlu.edu.domanagement.entity.Student;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 学生的持久层接口
  */
@@ -34,7 +37,7 @@ public interface StudentMapper {
     RandomDuty findRandomDutyByDid(Integer did);
 
     /**
-     * 查找学生的个人违纪信息
+     * 查找学生的所有违纪信息
      * @param sid
      * @return
      */
@@ -64,4 +67,19 @@ public interface StudentMapper {
      * @param student
      */
     void addStudent(Student student);
+
+    /**
+     * 查找学生的所有违纪记录
+     * @param sanitation  true卫生违纪  false个人违纪
+     * @return
+     */
+    Map[] findStudentAllDisciplinary(boolean sanitation);
+
+    /**
+     * 根据学号查找学生
+     * @param sid
+     * @return
+     */
+    Student findStudentBySid(String sid);
+
 }
