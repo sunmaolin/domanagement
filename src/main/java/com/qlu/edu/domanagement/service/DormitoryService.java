@@ -5,6 +5,7 @@ import com.qlu.edu.domanagement.entity.Dormitory;
 import com.qlu.edu.domanagement.entity.Floor;
 import com.qlu.edu.domanagement.entity.Maintain;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -108,5 +109,12 @@ public interface DormitoryService {
      * @return
      */
     List findAllDormitoryDisciplinary();
+
+    /**
+     * 增加宿舍的违纪信息
+     * @param disciplinary
+     * @param session
+     */
+    void addDormitoryDisciplinary(Disciplinary disciplinary, HttpSession session);
 
 }

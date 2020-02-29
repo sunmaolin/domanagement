@@ -3,6 +3,7 @@ package com.qlu.edu.domanagement.mapper;
 import com.qlu.edu.domanagement.entity.Disciplinary;
 import com.qlu.edu.domanagement.entity.RandomDuty;
 import com.qlu.edu.domanagement.entity.Student;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -82,4 +83,30 @@ public interface StudentMapper {
      */
     Student findStudentBySid(String sid);
 
+    /**
+     * 增加学生的违纪信息
+     * @param disciplinary
+     */
+    void addStudentDisciplinary(Disciplinary disciplinary);
+
+    /**
+     * 朝朝宿舍值日表返回Map方便操作
+     * @param did
+     * @return
+     */
+    Map findRandomDuty(Integer did);
+
+    /**
+     * 根据姓名和宿舍查找学号
+     * @param sname
+     * @param did
+     * @return
+     */
+    String findSidBySnameAndDid(@Param("sname")String sname,@Param("did")Integer did);
+
+    /**
+     * 删除违纪记录
+     * @param pid
+     */
+    void deleteDisciplinaryRecord(Integer pid);
 }

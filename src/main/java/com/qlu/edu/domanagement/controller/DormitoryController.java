@@ -1,5 +1,7 @@
 package com.qlu.edu.domanagement.controller;
 
+import com.qlu.edu.domanagement.controller.ex.FileIoException;
+import com.qlu.edu.domanagement.controller.ex.FileTypeException;
 import com.qlu.edu.domanagement.entity.Disciplinary;
 import com.qlu.edu.domanagement.entity.Dormitory;
 import com.qlu.edu.domanagement.entity.Floor;
@@ -8,10 +10,15 @@ import com.qlu.edu.domanagement.service.DormitoryService;
 import com.qlu.edu.domanagement.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("dormitory")
@@ -97,5 +104,20 @@ public class DormitoryController extends BaseController {
     public JsonResult<List> findAllDormitoryDisciplinary(){
         List data=dormitoryService.findAllDormitoryDisciplinary();
         return new JsonResult<>(OK,data);
+    }
+
+    @PostMapping("/submitDisciplinaryRecord")
+    public Map submitDisciplinaryRecord(Disciplinary disciplinary, MultipartFile photo, HttpSession session){
+
+        String filename = photoUpload(photo);
+
+        String image="images/upload/"+filename;
+        disciplinary.setImage(image);
+
+        dormitoryService.addDormitoryDisciplinary(disciplinary,session);
+
+        Map data=new HashMap();
+        data.put("success",true);
+        return data;
     }
 }

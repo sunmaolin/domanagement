@@ -4,8 +4,8 @@ package com.qlu.edu.domanagement.entity;
  * 宿舍和学生的违纪信息实体类
  */
 public class Disciplinary {
-    private int pid;//违纪信息id
-    private int did;//宿舍id
+    private Integer pid;//违纪信息id
+    private Integer did;//宿舍id
     private String sid;//学生id
     private String content;//违纪内容
     private String createUser;
@@ -13,20 +13,21 @@ public class Disciplinary {
     private String modifyUser;
     private String modifyTime;
     private String image;
+    private Boolean sanitation;//true为卫生违纪 false为个人违纪
 
-    public int getPid() {
+    public Integer getPid() {
         return pid;
     }
 
-    public void setPid(int pid) {
+    public void setPid(Integer pid) {
         this.pid = pid;
     }
 
-    public int getDid() {
+    public Integer getDid() {
         return did;
     }
 
-    public void setDid(int did) {
+    public void setDid(Integer did) {
         this.did = did;
     }
 
@@ -86,6 +87,14 @@ public class Disciplinary {
         this.image = image;
     }
 
+    public Boolean getSanitation() {
+        return sanitation;
+    }
+
+    public void setSanitation(Boolean sanitation) {
+        this.sanitation = sanitation;
+    }
+
     @Override
     public String toString() {
         return "Disciplinary{" +
@@ -98,6 +107,7 @@ public class Disciplinary {
                 ", modifyUser='" + modifyUser + '\'' +
                 ", modifyTime='" + modifyTime + '\'' +
                 ", image='" + image + '\'' +
+                ", sanitation=" + sanitation +
                 '}';
     }
 }

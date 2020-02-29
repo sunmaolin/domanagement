@@ -1,5 +1,7 @@
 package com.qlu.edu.domanagement.controller;
 
+import com.qlu.edu.domanagement.controller.ex.FileIoException;
+import com.qlu.edu.domanagement.controller.ex.FileTypeException;
 import com.qlu.edu.domanagement.entity.Disciplinary;
 import com.qlu.edu.domanagement.entity.RandomDuty;
 import com.qlu.edu.domanagement.entity.Student;
@@ -7,7 +9,11 @@ import com.qlu.edu.domanagement.service.StudentService;
 import com.qlu.edu.domanagement.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 @RestController
@@ -65,5 +71,26 @@ public class StudentController extends BaseController {
     public JsonResult<Map[]> findAllStudentDisciplinary(@PathVariable("sanitation") boolean sanitation){
         Map[] data = studentService.findAllDisciplinary(sanitation);
         return new JsonResult<>(OK,data);
+    }
+
+    @PostMapping("/submitDisciplinaryRecord")
+    public Map submitDisciplinaryRecord(Integer flag, Disciplinary disciplinary, MultipartFile photo, HttpSession session){
+
+        String filename = photoUpload(photo);
+
+        String image="images/upload/"+filename;
+        disciplinary.setImage(image);
+
+        studentService.addStudentDisciplinary(disciplinary,session,flag);
+
+        Map data=new HashMap();
+        data.put("success",true);
+        return data;
+    }
+
+    @GetMapping("deleteDisciplinaryRecord/{pid}")
+    public JsonResult deleteDisciplinaryRecord(@PathVariable("pid")Integer pid){
+        studentService.deleteDisciplinaryRecord(pid);
+        return new JsonResult(OK);
     }
 }

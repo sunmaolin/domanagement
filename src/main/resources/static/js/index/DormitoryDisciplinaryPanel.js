@@ -45,7 +45,7 @@ Ext.define('Index.DormitoryDisciplinaryPanel', {
                 {header:'记录人',dataIndex:'createUser'},
                 {header:'图片',renderer:function (value,record,item) {
                     if (item.data.image){
-                        return '<a href="http://localhost:8080/images/'+item.data.image+'" target="_blank">查看违纪图片</a>';
+                        return '<a href="'+window.document.location.href+item.data.image+'" target="_blank">查看违纪图片</a>';
                     } else {
                         return '<a>无违纪图片</a>';
                     }

@@ -45,6 +45,7 @@
 			perordordisciplinary
 		WHERE
 			sanitation = #{sanitation}
+		ORDER BY createTime DESC
 	</select>
 
 	<insert id="insertRandomDuty">
@@ -66,11 +67,39 @@
 			sid=#{sid}
 	</select>
 
+	<select id="findRandomDuty" resultType="java.util.Map">
+		SELECT
+			*
+		FROM
+			duty
+		WHERE
+			did=#{did}
+	</select>
+
+	<select id="findSidBySnameAndDid" resultType="java.lang.String">
+		SELECT
+			sid
+		FROM
+			student
+		WHERE
+			did=#{did} AND sname=#{sname}
+	</select>
+
 	<insert id="addStudent">
 		INSERT INTO
 			student
 		VALUE (
 			#{did},#{sid},#{sname},#{ssex},#{sphone},#{sprofessional},#{sclass}
+		)
+	</insert>
+
+	<insert id="addStudentDisciplinary">
+		INSERT INTO
+			perordordisciplinary
+		(
+			did,sid,content,createUser,createTime,image,sanitation
+		)VALUES (
+			#{did},#{sid},#{content},#{createUser},#{createTime},#{image},#{sanitation}
 		)
 	</insert>
 
@@ -83,6 +112,13 @@
 			student
 		WHERE
 			sid=#{sid}
+	</delete>
+
+	<delete id="deleteDisciplinaryRecord">
+		DELETE FROM
+			perordordisciplinary
+		WHERE
+			pid=#{pid}
 	</delete>
 
 	<delete id="deleteStudentDisciplinary">

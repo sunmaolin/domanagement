@@ -4,6 +4,7 @@ import com.qlu.edu.domanagement.entity.Disciplinary;
 import com.qlu.edu.domanagement.entity.RandomDuty;
 import com.qlu.edu.domanagement.entity.Student;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -56,4 +57,18 @@ public interface StudentService {
      * @return
      */
     Map[] findAllDisciplinary(boolean sanitation);
+
+    /**
+     * 插入学生的违纪信息
+     * @param disciplinary
+     * @param session
+     * @param flag 0个人违纪  1卫生违纪
+     */
+    void addStudentDisciplinary(Disciplinary disciplinary, HttpSession session,Integer flag);
+
+    /**
+     * 删除违纪记录
+     * @param pid
+     */
+    void deleteDisciplinaryRecord(Integer pid);
 }

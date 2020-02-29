@@ -8,10 +8,10 @@ import com.qlu.edu.domanagement.service.ex.SidExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpSession;
+import javax.xml.crypto.Data;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -164,4 +164,40 @@ public class StudentServiceImpl implements StudentService {
         }
         return map;
     }
+
+    @Override
+    public void addStudentDisciplinary(Disciplinary disciplinary, HttpSession session,Integer flag) {
+        String createUser = (String)session.getAttribute("username");
+        Date now=new Date();
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        String createTime=sdf.format(now);
+        disciplinary.setCreateUser(createUser);
+        disciplinary.setCreateTime(createTime);
+        if (flag==0){//个人违纪
+            disciplinary.setSanitation(false);
+        }else if (flag==2){//卫生违纪
+            disciplinary.setSanitation(true);
+            //获取日历
+            Calendar calendar=Calendar.getInstance();
+            //今天是第几天
+            int day=calendar.get(Calendar.DAY_OF_WEEK)-1;
+            String[] weekDay= {"sunday","monday","tuesday","wednesday","thursday","friday","saturday"};
+            String today=weekDay[day];
+            //根据宿舍id查找本周值日生
+            Map randomDuty= studentMapper.findRandomDuty(disciplinary.getDid());
+            String sname=(String)randomDuty.get(today);
+            //根据姓名,宿舍查找到学号插入
+            String sid = studentMapper.findSidBySnameAndDid(sname,disciplinary.getDid());
+            disciplinary.setSid(sid);
+        }
+        disciplinary.setDid(null);
+        studentMapper.addStudentDisciplinary(disciplinary);
+    }
+
+    @Override
+    public void deleteDisciplinaryRecord(Integer pid) {
+        studentMapper.deleteDisciplinaryRecord(pid);
+    }
+
+
 }

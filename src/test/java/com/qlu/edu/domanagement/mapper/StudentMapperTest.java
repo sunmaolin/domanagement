@@ -1,5 +1,6 @@
 package com.qlu.edu.domanagement.mapper;
 
+import com.qlu.edu.domanagement.entity.Disciplinary;
 import com.qlu.edu.domanagement.entity.RandomDuty;
 import com.qlu.edu.domanagement.entity.Student;
 import org.junit.jupiter.api.Test;
@@ -60,5 +61,16 @@ public class StudentMapperTest {
         }
     }
 
+    @Test
+    public void addStudentDisciplinary(){
+        Disciplinary disciplinary=new Disciplinary();
+        disciplinary.setSid("201603121128");
+        disciplinary.setContent("卫生");
+        disciplinary.setSanitation(true);
+        disciplinary.setCreateUser("su");
+        disciplinary.setCreateTime("1998-07-27");
+        disciplinary.setImage("qlu.jpg");
+        studentMapper.addStudentDisciplinary(disciplinary);
+    }
 
 }

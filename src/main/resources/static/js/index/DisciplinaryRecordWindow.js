@@ -91,7 +91,8 @@ Ext.define('Index.DisciplinaryRecordWindow', {
                change:function (field,newValue) {
                    //实现二级联动
                    me.dormitoryStore.getProxy().extraParams={fid:newValue};
-                   // me.dormitoryStore.load();
+                   dormitoryComb.clearValue();
+                   me.dormitoryStore.load();
                }
            }
         });
@@ -112,7 +113,8 @@ Ext.define('Index.DisciplinaryRecordWindow', {
                     //实现二级联动,如果是个人违纪面板才执行
                     if (me.flag == 0) {
                         me.studentStore.getProxy().url="/student/find/"+newValue;
-                        // me.studentStore.load();
+                        studentComb.clearValue();
+                        me.studentStore.load();
                     }
                 }
             }
@@ -121,6 +123,7 @@ Ext.define('Index.DisciplinaryRecordWindow', {
         var studentComb=Ext.create('Ext.form.ComboBox',{
             fieldLabel:'学生',
             labelWidth:40,
+            allowBlank:false,
             width:150,
             margin:'0 0 0 20',
             editable:false,
@@ -133,6 +136,7 @@ Ext.define('Index.DisciplinaryRecordWindow', {
         //违纪内容
         var disciplinaryContent=Ext.widget('textareafield',{
            fieldLabel:'违纪内容',
+           allowBlank:false,
            labelWidth:60,
            width:310,
            height:100,
@@ -153,30 +157,14 @@ Ext.define('Index.DisciplinaryRecordWindow', {
             text:'确定',
             margin:me.flag==0?'0 30 0 180':'0 30 0 100',
             handler:function () {
-                var form = this.up('form').getForm();
-                if(form.isValid()){
-                    form.submit({
-                        url:me.flag==1?'/dormitory':'/student'+'/submitDisciplinaryRecord',
-                        params:{
-                          flag:me.flag
-                        },
-                        success:function (form, action) {
-                            Ext.Msg.alert('提示信息','添加成功！');
-                            form.reset();
-                            //TODO 刷新表格数据
-                        },
-                        failure:function (form, action) {
-                            Ext.Msg.alert('提示信息',action.result.message);
-                        }
-                    });
-                }
+                me.addRecord();
             }
         });
         //删除按钮
         var deleteButton=Ext.create('Ext.button.Button',{
             text:'删除',
             handler:function () {
-
+                me.deleteRecord();
             }
         });
         //表单
@@ -216,7 +204,7 @@ Ext.define('Index.DisciplinaryRecordWindow', {
                     {header:'记录人',dataIndex:'createUser'},
                     {header:'图片',renderer:function (value,record,item) {
                             if (item.data.image){
-                                return '<a href="http://localhost:8080/images/'+item.data.image+'" target="_blank">查看违纪图片</a>';
+                                return '<a href="'+window.document.location.href+item.data.image+'" target="_blank">查看违纪图片</a>';
                             } else {
                                 return '<a>无违纪图片</a>';
                             }
@@ -239,7 +227,7 @@ Ext.define('Index.DisciplinaryRecordWindow', {
                     {header:'记录人',dataIndex:'createUser',width:60},
                     {header:'图片',renderer:function (value,record,item) {
                             if (item.data.image){
-                                return '<a href="http://localhost:8080/images/'+item.data.image+'" target="_blank">查看违纪图片</a>';
+                                return '<a href="'+window.document.location.href+item.data.image+'" target="_blank">查看违纪图片</a>';
                             } else {
                                 return '<a>无违纪图片</a>';
                             }
@@ -262,7 +250,7 @@ Ext.define('Index.DisciplinaryRecordWindow', {
                     {header:'记录人',dataIndex:'createUser',width:60},
                     {header:'图片',renderer:function (value,record,item) {
                             if (item.data.image){
-                                return '<a href="http://localhost:8080/images/'+item.data.image+'" target="_blank">查看违纪图片</a>';
+                                return '<a href="'+window.document.location.href+item.data.image+'" target="_blank">查看违纪图片</a>';
                             } else {
                                 return '<a>无违纪图片</a>';
                             }
@@ -271,6 +259,50 @@ Ext.define('Index.DisciplinaryRecordWindow', {
                 ],
                 store:me.disciplinaryStore
             }));
+        }
+    },
+    addRecord:function () {
+        var me = this;
+        var form = me.down('form').getForm();
+        if(form.isValid()){
+            form.submit({
+                url:(me.flag==1?'/dormitory':'/student')+'/submitDisciplinaryRecord',
+                params:{
+                    flag:me.flag
+                },
+                success:function (form, action) {
+                    Ext.Msg.alert('提示信息','添加成功！');
+                    form.reset();
+                    me.disciplinaryStore.load();
+                },
+                failure:function (form, action) {
+                    Ext.Msg.alert('提示信息',action.result.message);
+                }
+            });
+        }
+    },
+    deleteRecord:function () {
+        // console.log(this.down('grid').getSelectionModel().selected.items[0].data);
+        var grid=this.down('grid');
+        var selected = grid.getSelectionModel().selected.items[0];
+        if (!selected){
+            Ext.Msg.alert('提示信息','请在表格中选中记录进行删除！');
+            return;
+        }else {
+            Ext.Ajax.request({
+                //删除宿舍违纪记录也使用此链接
+                url:'/student/deleteDisciplinaryRecord/'+selected.data.pid,
+                method:'GET',
+                success:function (response) {
+                    var resp=Ext.decode(response.responseText);
+                    if(resp.state){
+                        Ext.Msg.alert('提示信息','删除成功！');
+                        grid.getStore().load();
+                    }else{
+                        Ext.Msg.alert('提示信息',resp.message);
+                    }
+                }
+            });
         }
     }
 });

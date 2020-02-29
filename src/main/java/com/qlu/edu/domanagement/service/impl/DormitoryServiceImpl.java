@@ -5,27 +5,29 @@ import com.qlu.edu.domanagement.entity.Dormitory;
 import com.qlu.edu.domanagement.entity.Floor;
 import com.qlu.edu.domanagement.entity.Maintain;
 import com.qlu.edu.domanagement.mapper.DormitoryMapper;
+import com.qlu.edu.domanagement.mapper.StudentMapper;
 import com.qlu.edu.domanagement.service.DormitoryService;
 import com.qlu.edu.domanagement.service.ex.DormitoryNameExistException;
 import com.qlu.edu.domanagement.service.ex.FloorNameExistException;
 import com.qlu.edu.domanagement.service.ex.HaveChildrenException;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class DormitoryServiceImpl implements DormitoryService {
 
     @Autowired
     DormitoryMapper dormitoryMapper;
+
+    @Autowired
+    StudentMapper studentMapper;
 
     @Override
     public List findFloorAndDormitory(Integer flag, Integer fid) {
@@ -178,6 +180,18 @@ public class DormitoryServiceImpl implements DormitoryService {
             e.printStackTrace();
         }
         return all;
+    }
+
+    @Override
+    public void addDormitoryDisciplinary(Disciplinary disciplinary, HttpSession session) {
+        Date now=new Date();
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        String createTime=sdf.format(now);
+        String createUser=(String) session.getAttribute("username");
+        disciplinary.setCreateTime(createTime);
+        disciplinary.setCreateUser(createUser);
+        disciplinary.setSid(null);
+        studentMapper.addStudentDisciplinary(disciplinary);
     }
 
     /**
