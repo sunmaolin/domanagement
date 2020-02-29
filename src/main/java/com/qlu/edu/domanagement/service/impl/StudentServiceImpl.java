@@ -34,6 +34,8 @@ public class StudentServiceImpl implements StudentService {
         //生成之前先清空当周值日表
         studentMapper.clearRandomDuty();
 
+        //思路为先每个宿舍取出7人，后根据打乱的周一到周日进行随机
+
         //拿到所有宿舍id
         Integer[] dids=dormitoryMapper.findAllDormitoryId();
         //循坏每一个宿舍生成值日表
@@ -46,13 +48,14 @@ public class StudentServiceImpl implements StudentService {
             Student[] students=studentMapper.findStudentsByDid(dids[i]);
             //学生的人数
             int studentsLength=students.length;
+            //宿舍没有学生
             if (studentsLength==0){
                 continue;
             }
             //宿舍七个人，小于七个人，大于七个人三种情况
             if(studentsLength==7){
                 Collections.addAll(studentsDuty,students);
-            }else if (studentsLength<7){
+            }else if (studentsLength<7 && studentsLength>3){ //4 5 6 人的情况
                 Collections.addAll(studentsDuty,students);
                 List newStudentsDuty=new ArrayList();
                 //还需要几个人
@@ -69,7 +72,28 @@ public class StudentServiceImpl implements StudentService {
                     }
                 }
                 studentsDuty.addAll(newStudentsDuty);
-            }else if (studentsLength>7){
+            }else if(studentsLength>0 && studentsLength<4){ //1 2 3 人的情况
+                Collections.addAll(studentsDuty,students);
+                List newStudentsDuty=new ArrayList();
+                if(studentsLength==1){
+                    for (int j=0;j<6;j++){
+                        newStudentsDuty.add(students[0]);
+                    }
+                }else if (studentsLength==2){
+                    for (int j=0;j<4;j++){
+                        newStudentsDuty.add(students[j%2]);
+                    }
+
+                }else if (studentsLength==3){
+                    for (int j=0;j<3;j++){
+                        newStudentsDuty.add(students[j%3]);
+                    }
+                }
+                //最后一人随机取
+                Student student=students[(int)(Math.random()*(studentsLength-1))];
+                newStudentsDuty.add(student);
+                studentsDuty.addAll(newStudentsDuty);
+            }else if (studentsLength>7){ //宿舍人数大于七人的情况
                 int need=1;
                 List newStudentsDuty=new ArrayList();
                 while(true){
