@@ -194,6 +194,44 @@ public class DormitoryServiceImpl implements DormitoryService {
         studentMapper.addStudentDisciplinary(disciplinary);
     }
 
+    @Override
+    public Map[] findAllMaintain() {
+        Map[] maintains = dormitoryMapper.findAllMaintain();
+        for (Map maintain:maintains){
+            Integer did = (Integer)maintain.get("did");
+            Dormitory dormitory = dormitoryMapper.findDormitoryByDid(did);
+            maintain.put("dname",dormitory.getDname());
+            Floor floor = dormitoryMapper.findFloorByFid(dormitory.getFid());
+            maintain.put("fname",floor.getFname());
+        }
+        return maintains;
+    }
+
+    @Override
+    public void addMaintainRecord(Maintain maintain) {
+        Date now=new Date();
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        String createTime=sdf.format(now);
+        maintain.setCreateTime(createTime);
+        dormitoryMapper.addMaintainRecord(maintain);
+    }
+
+    @Override
+    public void deleteMaintainRecord(Integer mid) {
+        dormitoryMapper.deleteMaintainRecord(mid);
+    }
+
+    @Override
+    public void updateMaintainRecord(Maintain[] maintains) {
+        Date now =new Date();
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        String maintainTime=sdf.format(now);
+        for (Maintain maintain:maintains){
+            maintain.setMaintainTime(maintainTime);
+            dormitoryMapper.updateMaintainRecord(maintain);
+        }
+    }
+
     /**
      * 数字转为汉字的处理方法
      * @param number

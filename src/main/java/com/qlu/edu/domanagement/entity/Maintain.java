@@ -13,6 +13,7 @@ public class Maintain {
     private String maintainTime; //维修时间
     private String maintainUser; //维修人
 
+
     public Integer getMid() {
         return mid;
     }

@@ -117,4 +117,28 @@ public interface DormitoryService {
      */
     void addDormitoryDisciplinary(Disciplinary disciplinary, HttpSession session);
 
+    /**
+     * 查询所有的维修信息
+     * @return
+     */
+    Map[] findAllMaintain();
+
+    /**
+     * 增加维修记录
+     * @param maintain
+     */
+    void addMaintainRecord(Maintain maintain);
+
+    /**
+     * 删除维修记录
+     * @param mid
+     */
+    void deleteMaintainRecord(Integer mid);
+
+    /**
+     * 更新维修记录表
+     * @param maintains
+     */
+    void updateMaintainRecord(Maintain[] maintains);
+
 }

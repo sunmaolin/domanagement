@@ -3,7 +3,7 @@
  */
 Ext.define('Index.Function',{
     extend:'Ext.menu.Menu',
-    requires:['Index.AddOrDeleteFloor','Index.DisciplinaryRecordWindow'],
+    requires:['Index.AddOrDeleteFloor','Index.DisciplinaryRecordWindow','Index.MaintainRecordWindow'],
     xtype:'fun',
     id:'fun',
     width:180,
@@ -24,7 +24,7 @@ Ext.define('Index.Function',{
         var items=[{
             text:'宿舍维修登记',
             handler:function () {
-                alert('宿舍维修登记');
+                Ext.create('Index.MaintainRecordWindow',{title:'宿舍维修登记'}).show();
             }
         },{
             text:'违纪记录',

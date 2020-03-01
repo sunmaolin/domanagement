@@ -85,6 +85,7 @@ public class StudentController extends BaseController {
 
         Map data=new HashMap();
         data.put("success",true);
+        data.put("state",OK);
         return data;
     }
 

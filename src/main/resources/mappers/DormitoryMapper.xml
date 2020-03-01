@@ -120,6 +120,26 @@
 			fid=#{fid}
 	</select>
 
+	<!--查询所有的维修记录-->
+	<select id="findAllMaintain" resultType="java.util.Map">
+		SELECT
+			*
+		FROM
+			maintain
+		ORDER BY createTime DESC
+	</select>
+
+	<!--增加维修记录-->
+	<insert id="addMaintainRecord">
+		INSERT INTO
+			maintain
+		(
+			did,content,createUser,createTime
+		)VALUES(
+			#{did},#{content},#{createUser},#{createTime}
+		)
+	</insert>
+
 	<!--插入宿舍楼-->
 	<insert id="insertFloor">
 		INSERT INTO
@@ -143,6 +163,14 @@
 			fname=#{fname}
 	</delete>
 
+	<!--删除维修记录-->
+	<delete id="deleteMaintainRecord">
+		DELETE FROM
+			maintain
+		WHERE
+			mid=#{mid}
+	</delete>
+
 	<!--删除宿舍-->
 	<delete id="deleteDormitory">
 		DELETE FROM
@@ -150,6 +178,14 @@
 		WHERE
 			fid=#{fid} AND dname=#{dname}
 	</delete>
+
+	<!--更新维修记录表-->
+	<update id="updateMaintainRecord">
+		UPDATE maintain SET
+			remark=#{remark},maintainUser=#{maintainUser},maintainTime=#{maintainTime}
+		WHERE
+			mid=#{mid}
+	</update>
 </mapper>
 
 

@@ -6,6 +6,8 @@ import com.qlu.edu.domanagement.entity.Floor;
 import com.qlu.edu.domanagement.entity.Maintain;
 import org.springframework.stereotype.Repository;
 
+import java.util.Map;
+
 
 /**
  * 宿舍楼与宿舍的持久层接口
@@ -115,4 +117,27 @@ public interface DormitoryMapper {
      */
     Floor findFloorByFid(Integer fid);
 
+    /**
+     * 查询所有的维修记录
+     * @return
+     */
+    Map[] findAllMaintain();
+
+    /**
+     * 增加维修记录
+     * @param maintain
+     */
+    void addMaintainRecord(Maintain maintain);
+
+    /**
+     * 根据mid删除维修记录
+     * @param mid
+     */
+    void deleteMaintainRecord(Integer mid);
+
+    /**
+     * 更新维修记录表
+     * @param maintain
+     */
+    void updateMaintainRecord(Maintain maintain);
 }

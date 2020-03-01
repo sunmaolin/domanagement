@@ -11,6 +11,7 @@ import com.qlu.edu.domanagement.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import sun.applet.Main;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -106,7 +107,7 @@ public class DormitoryController extends BaseController {
         return new JsonResult<>(OK,data);
     }
 
-    @PostMapping("/submitDisciplinaryRecord")
+    @PostMapping("submitDisciplinaryRecord")
     public Map submitDisciplinaryRecord(Disciplinary disciplinary, MultipartFile photo, HttpSession session){
 
         String filename = photoUpload(photo);
@@ -118,6 +119,34 @@ public class DormitoryController extends BaseController {
 
         Map data=new HashMap();
         data.put("success",true);
+        data.put("state",OK);
         return data;
+    }
+
+    @GetMapping("findAllMaintain")
+    public JsonResult<Map[]> findAllMaintain(){
+        Map[] maintains = dormitoryService.findAllMaintain();
+        return new JsonResult<>(OK,maintains);
+    }
+
+    @PostMapping("addMaintainRecord")
+    public Map addMaintainRecord(Maintain maintain){
+        dormitoryService.addMaintainRecord(maintain);
+        Map data = new HashMap();
+        data.put("success",true);
+        data.put("state",OK);
+        return data;
+    }
+
+    @GetMapping("deleteMaintainRecord/{mid}")
+    public JsonResult deleteMaintainRecord(@PathVariable("mid")Integer mid){
+        dormitoryService.deleteMaintainRecord(mid);
+        return new JsonResult(OK);
+    }
+
+    @PostMapping("saveMaintainRecord")
+    public JsonResult saveMaintainRecord(@RequestBody Maintain[] maintains){
+        dormitoryService.updateMaintainRecord(maintains);
+        return new JsonResult(OK);
     }
 }
