@@ -129,6 +129,15 @@
 		ORDER BY createTime DESC
 	</select>
 
+    <!--查找所有的通知-->
+    <select id="findAllNotice" resultType="com.qlu.edu.domanagement.entity.Notice">
+        SELECT
+            *
+        FROM
+            notice
+    </select>
+
+
 	<!--增加维修记录-->
 	<insert id="addMaintainRecord">
 		INSERT INTO
@@ -137,6 +146,17 @@
 			did,content,createUser,createTime
 		)VALUES(
 			#{did},#{content},#{createUser},#{createTime}
+		)
+	</insert>
+
+	<!--添加已发布内容-->
+	<insert id="addPublishNotice">
+		INSERT INTO
+			notice
+		(
+			title,content,publishUser,createUser,createTime
+		)VALUES (
+			#{title},#{content},#{publishUser},#{createUser},#{createTime}
 		)
 	</insert>
 
@@ -154,6 +174,23 @@
 		VALUES
 			(#{fid},#{dname})
 	</insert>
+
+	<!--修改已发布的内容-->
+	<insert id="updatePublishNotice">
+		INSERT INTO
+			notice
+		VALUES (
+			#{nid},#{title},#{content},#{publishUser},#{createUser},#{createTime},#{modifyUser},#{modifyTime}
+		)
+	</insert>
+
+	<!--删除已发布内容-->
+	<delete id="deletePublishNotice">
+		DELETE FROM
+			notice
+		WHERE
+			nid=#{nid}
+	</delete>
 
 	<!--删除宿舍楼-->
 	<delete id="deleteFloor">

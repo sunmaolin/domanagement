@@ -3,7 +3,7 @@
  */
 Ext.define('Index.Function',{
     extend:'Ext.menu.Menu',
-    requires:['Index.AddOrDeleteFloor','Index.DisciplinaryRecordWindow','Index.MaintainRecordWindow'],
+    requires:['Index.AddOrDeleteFloor','Index.DisciplinaryRecordWindow','Index.MaintainRecordWindow','Index.PublishNoticePanel'],
     xtype:'fun',
     id:'fun',
     width:180,
@@ -22,9 +22,21 @@ Ext.define('Index.Function',{
     loadComp:function(){
         var me=this;
         var items=[{
+            text:'通报功能',
+            handler:function () {
+                var isHave = me.isHavaComp('publishNoticePanel');
+                if (isHave) {
+                    Ext.getCmp('center').setActiveTab(isHave);
+                }else {
+                    Ext.getCmp('center').add(Ext.widget('publishNoticePanel'));
+                }
+            }
+        },{
             text:'宿舍维修登记',
             handler:function () {
-                Ext.create('Index.MaintainRecordWindow',{title:'宿舍维修登记'}).show();
+                if(!me.isHavaComp('maintainRecordWindow')){
+                    Ext.create('Index.MaintainRecordWindow',{title:'宿舍维修登记'}).show();
+                }
             }
         },{
             text:'违纪记录',
@@ -400,7 +412,17 @@ Ext.define('Index.Function',{
                 }
             }
         });
+    },
+    /**
+     * 是否已存在组件
+     */
+    isHavaComp:function (xtype) {
+        var isHave=Ext.ComponentQuery.query(xtype);
+        if (isHave) {
+            return isHave[0] ;
+        }else{
+            return false;
+        }
     }
-
 
 });

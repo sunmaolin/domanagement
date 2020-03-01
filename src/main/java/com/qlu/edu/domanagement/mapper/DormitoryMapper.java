@@ -1,9 +1,6 @@
 package com.qlu.edu.domanagement.mapper;
 
-import com.qlu.edu.domanagement.entity.Disciplinary;
-import com.qlu.edu.domanagement.entity.Dormitory;
-import com.qlu.edu.domanagement.entity.Floor;
-import com.qlu.edu.domanagement.entity.Maintain;
+import com.qlu.edu.domanagement.entity.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.Map;
@@ -140,4 +137,28 @@ public interface DormitoryMapper {
      * @param maintain
      */
     void updateMaintainRecord(Maintain maintain);
+
+    /**
+     * 查找所有的通知
+     * @return
+     */
+    Notice[] findAllNotice();
+
+    /**
+     * 添加已发布内容
+     * @param notice
+     */
+    void addPublishNotice(Notice notice);
+
+    /**
+     * 删除已发布内容
+     * @param nid
+     */
+    void deletePublishNotice(Integer nid);
+
+    /**
+     * 修改已发布的内容
+     * @param notice
+     */
+    void updatePublishNotice(Notice notice);
 }

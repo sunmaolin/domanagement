@@ -2,10 +2,7 @@ package com.qlu.edu.domanagement.controller;
 
 import com.qlu.edu.domanagement.controller.ex.FileIoException;
 import com.qlu.edu.domanagement.controller.ex.FileTypeException;
-import com.qlu.edu.domanagement.entity.Disciplinary;
-import com.qlu.edu.domanagement.entity.Dormitory;
-import com.qlu.edu.domanagement.entity.Floor;
-import com.qlu.edu.domanagement.entity.Maintain;
+import com.qlu.edu.domanagement.entity.*;
 import com.qlu.edu.domanagement.service.DormitoryService;
 import com.qlu.edu.domanagement.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -148,5 +145,35 @@ public class DormitoryController extends BaseController {
     public JsonResult saveMaintainRecord(@RequestBody Maintain[] maintains){
         dormitoryService.updateMaintainRecord(maintains);
         return new JsonResult(OK);
+    }
+
+    @GetMapping("findAllNotice")
+    public JsonResult<Notice[]> findAllNotice(){
+        Notice[] notices = dormitoryService.findAllNotice();
+        return new JsonResult<>(OK,notices);
+    }
+
+    @PostMapping("addPublishNotice")
+    public Map addPublishNotice(Notice notice,HttpSession session){
+        dormitoryService.addPublishNotice(notice,session);
+        Map data = new HashMap();
+        data.put("state",OK);
+        data.put("success",true);
+        return data;
+    }
+
+    @GetMapping("deletePublishNotice/{nid}")
+    public JsonResult deletePublishNotice(@PathVariable("nid")Integer nid){
+        dormitoryService.deletePublishNotice(nid);
+        return new JsonResult(OK);
+    }
+
+    @PostMapping("updatePublishNotice")
+    public Map updatePublishNotice(Notice notice,HttpSession session){
+        dormitoryService.updatePublishNotice(notice,session);
+        Map data = new HashMap();
+        data.put("state",OK);
+        data.put("success",true);
+        return data;
     }
 }

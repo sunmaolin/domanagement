@@ -1,9 +1,6 @@
 package com.qlu.edu.domanagement.service.impl;
 
-import com.qlu.edu.domanagement.entity.Disciplinary;
-import com.qlu.edu.domanagement.entity.Dormitory;
-import com.qlu.edu.domanagement.entity.Floor;
-import com.qlu.edu.domanagement.entity.Maintain;
+import com.qlu.edu.domanagement.entity.*;
 import com.qlu.edu.domanagement.mapper.DormitoryMapper;
 import com.qlu.edu.domanagement.mapper.StudentMapper;
 import com.qlu.edu.domanagement.service.DormitoryService;
@@ -230,6 +227,40 @@ public class DormitoryServiceImpl implements DormitoryService {
             maintain.setMaintainTime(maintainTime);
             dormitoryMapper.updateMaintainRecord(maintain);
         }
+    }
+
+    @Override
+    public Notice[] findAllNotice() {
+        return dormitoryMapper.findAllNotice();
+    }
+
+    @Override
+    public void addPublishNotice(Notice notice,HttpSession session) {
+        String createUser=(String)session.getAttribute("username");
+        Date now=new Date();
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        String createTime=sdf.format(now);
+        notice.setCreateUser(createUser);
+        notice.setCreateTime(createTime);
+        dormitoryMapper.addPublishNotice(notice);
+    }
+
+    @Override
+    public void deletePublishNotice(Integer nid) {
+        dormitoryMapper.deletePublishNotice(nid);
+    }
+
+    @Override
+    public void updatePublishNotice(Notice notice, HttpSession session) {
+        //先将原来的删除
+        dormitoryMapper.deletePublishNotice(notice.getNid());
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String modifyTime = sdf.format(new Date());
+        String modifyUser = (String) session.getAttribute("username");
+        notice.setModifyTime(modifyTime);
+        notice.setModifyUser(modifyUser);
+        dormitoryMapper.updatePublishNotice(notice);
     }
 
     /**

@@ -1,9 +1,6 @@
 package com.qlu.edu.domanagement.mapper;
 
-import com.qlu.edu.domanagement.entity.Disciplinary;
-import com.qlu.edu.domanagement.entity.Dormitory;
-import com.qlu.edu.domanagement.entity.Floor;
-import com.qlu.edu.domanagement.entity.Maintain;
+import com.qlu.edu.domanagement.entity.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -81,6 +78,12 @@ public class FloorAndDormitoryMapperTest {
         for (int i=0;i<disciplinaries.length;i++){
             System.out.println(disciplinaries[i].toString());
         }
+    }
+
+    @Test
+    public void findAllNotice(){
+        Notice[] notices = dormitoryMapper.findAllNotice();
+        System.out.println(notices[0].toString());
     }
 
 }

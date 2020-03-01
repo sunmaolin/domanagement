@@ -1,9 +1,6 @@
 package com.qlu.edu.domanagement.service;
 
-import com.qlu.edu.domanagement.entity.Disciplinary;
-import com.qlu.edu.domanagement.entity.Dormitory;
-import com.qlu.edu.domanagement.entity.Floor;
-import com.qlu.edu.domanagement.entity.Maintain;
+import com.qlu.edu.domanagement.entity.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -140,5 +137,30 @@ public interface DormitoryService {
      * @param maintains
      */
     void updateMaintainRecord(Maintain[] maintains);
+
+    /**
+     * 查找所有的通知信息
+     * @return
+     */
+    Notice[] findAllNotice();
+
+    /**
+     * 添加已发布通知
+     * @param notice
+     */
+    void addPublishNotice(Notice notice,HttpSession session);
+
+    /**
+     * 删除已发布内容
+     * @param nid
+     */
+    void deletePublishNotice(Integer nid);
+
+    /**
+     * 修改已发布的内容
+     * @param notice
+     * @param session
+     */
+    void updatePublishNotice(Notice notice,HttpSession session);
 
 }
