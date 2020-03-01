@@ -148,6 +148,7 @@ Ext.define('Index.PublishNoticePanel', {
         me.add(publishGrid);
     },
     publish:function () {
+        Ext.getCmp('updateCommit').setVisible(false);
         var me=this;
         var form=me.down('form').getForm();
         if(form.isValid()) {
@@ -165,6 +166,7 @@ Ext.define('Index.PublishNoticePanel', {
         }
     },
     reset:function () {
+        Ext.getCmp('updateCommit').setVisible(false);
         this.down('form').getForm().reset();
     },
     preview:function () {
@@ -209,6 +211,7 @@ Ext.define('Index.PublishNoticePanel', {
         }
     },
     delete:function () {
+        Ext.getCmp('updateCommit').setVisible(false);
         var me=this;
         var grid=me.down('grid');
         var selected = grid.getSelectionModel().selected.items[0];
