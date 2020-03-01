@@ -25,11 +25,11 @@ Ext.define('Index.Function',{
             text:'通报功能',
             handler:function () {
                 var isHave = me.isHavaComp('publishNoticePanel');
-                if (isHave) {
-                    Ext.getCmp('center').setActiveTab(isHave);
-                }else {
-                    Ext.getCmp('center').add(Ext.widget('publishNoticePanel'));
+                if (!isHave) {
+                    isHave=Ext.widget('publishNoticePanel');
+                    Ext.getCmp('center').add(isHave);
                 }
+                Ext.getCmp('center').setActiveTab(isHave);
             }
         },{
             text:'宿舍维修登记',

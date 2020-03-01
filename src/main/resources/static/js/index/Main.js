@@ -105,14 +105,11 @@ Ext.define('Index.Main',{
                         if(!record.data.parentId){
                             //TODO 拼接宿舍名加楼号
                             var isHavaPanel=Ext.getCmp('centerPanel'+record.data.did);
-                            if(isHavaPanel){
-                                //已存在该面板,激活选项卡
-                                Ext.getCmp('center').setActiveTab(isHavaPanel);
-                            }else{
-                                var centerPanel=Ext.widget('centerPanel',{title:record.data.text,did:record.data.did});
-                                Ext.getCmp('center').add(centerPanel);
-                                Ext.getCmp('center').setActiveTab(centerPanel);
+                            if(!isHavaPanel){
+                                isHavaPanel=Ext.widget('centerPanel',{title:record.data.text,did:record.data.did});
+                                Ext.getCmp('center').add(isHavaPanel);
                             }
+                            Ext.getCmp('center').setActiveTab(isHavaPanel);
                         }
                     }
                 }
