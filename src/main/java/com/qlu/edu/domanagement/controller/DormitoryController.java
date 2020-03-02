@@ -107,10 +107,11 @@ public class DormitoryController extends BaseController {
     @PostMapping("submitDisciplinaryRecord")
     public Map submitDisciplinaryRecord(Disciplinary disciplinary, MultipartFile photo, HttpSession session){
 
-        String filename = photoUpload(photo);
-
-        String image="images/upload/"+filename;
-        disciplinary.setImage(image);
+        if(!photo.isEmpty()){
+            String filename = photoUpload(photo);
+            String image="images/upload/"+filename;
+            disciplinary.setImage(image);
+        }
 
         dormitoryService.addDormitoryDisciplinary(disciplinary,session);
 

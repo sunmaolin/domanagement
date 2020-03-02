@@ -76,10 +76,11 @@ public class StudentController extends BaseController {
     @PostMapping("/submitDisciplinaryRecord")
     public Map submitDisciplinaryRecord(Integer flag, Disciplinary disciplinary, MultipartFile photo, HttpSession session){
 
-        String filename = photoUpload(photo);
-
-        String image="images/upload/"+filename;
-        disciplinary.setImage(image);
+        if(!photo.isEmpty()){
+            String filename = photoUpload(photo);
+            String image="images/upload/"+filename;
+            disciplinary.setImage(image);
+        }
 
         studentService.addStudentDisciplinary(disciplinary,session,flag);
 
