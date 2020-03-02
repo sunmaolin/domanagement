@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @SpringBootTest
 public class FloorAndDormitoryMapperTest {
@@ -85,5 +87,7 @@ public class FloorAndDormitoryMapperTest {
         Notice[] notices = dormitoryMapper.findAllNotice();
         System.out.println(notices[0].toString());
     }
+
+
 
 }

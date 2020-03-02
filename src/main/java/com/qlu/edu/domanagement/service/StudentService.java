@@ -71,4 +71,10 @@ public interface StudentService {
      * @param pid
      */
     void deleteDisciplinaryRecord(Integer pid);
+
+    /**
+     * 增加留言信息
+     * @param opinion
+     */
+    void addMessage(String opinion);
 }

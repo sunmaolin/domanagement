@@ -20,6 +20,10 @@ public class LoginInterceptorConfigurer implements WebMvcConfigurer {
         List<String> patterns=new ArrayList<>();
         patterns.add("/web/login.html");
         patterns.add("/users/login");
+        //学生端获取通知信息
+        patterns.add("/dormitory/findAllNotice");
+        //学生端进行留言
+        patterns.add("/student/addMessage");
         patterns.add("/css/**");
         patterns.add("/images/**");
         patterns.add("/js/**");

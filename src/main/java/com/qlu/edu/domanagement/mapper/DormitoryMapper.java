@@ -161,4 +161,6 @@ public interface DormitoryMapper {
      * @param notice
      */
     void updatePublishNotice(Notice notice);
+
+
 }

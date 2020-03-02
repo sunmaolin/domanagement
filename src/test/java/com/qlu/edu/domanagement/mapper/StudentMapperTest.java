@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -71,6 +72,14 @@ public class StudentMapperTest {
         disciplinary.setCreateTime("1998-07-27");
         disciplinary.setImage("qlu.jpg");
         studentMapper.addStudentDisciplinary(disciplinary);
+    }
+
+    @Test
+    public void addMessage(){
+        Map map=new HashMap<>();
+        map.put("opinion","宿舍好");
+        map.put("createTime","1998-07-27");
+        studentMapper.addMessage(map);
     }
 
 }

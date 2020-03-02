@@ -223,5 +223,14 @@ public class StudentServiceImpl implements StudentService {
         studentMapper.deleteDisciplinaryRecord(pid);
     }
 
+    @Override
+    public void addMessage(String opinion) {
+        Map messageBoard=new HashMap();
+        messageBoard.put("opinion",opinion);
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        messageBoard.put("createTime",sdf.format(new Date()));
+        studentMapper.addMessage(messageBoard);
+    }
+
 
 }

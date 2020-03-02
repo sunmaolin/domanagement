@@ -109,4 +109,10 @@ public interface StudentMapper {
      * @param pid
      */
     void deleteDisciplinaryRecord(Integer pid);
+
+    /**
+     * 增加留言信息
+     * @param messageBoard
+     */
+    void addMessage(Map messageBoard);
 }

@@ -263,6 +263,8 @@ public class DormitoryServiceImpl implements DormitoryService {
         dormitoryMapper.updatePublishNotice(notice);
     }
 
+
+
     /**
      * 数字转为汉字的处理方法
      * @param number

@@ -94,4 +94,12 @@ public class StudentController extends BaseController {
         studentService.deleteDisciplinaryRecord(pid);
         return new JsonResult(OK);
     }
+
+    //解决跨域请求
+    @CrossOrigin(origins="http://localhost:8081",allowCredentials="true")
+    @PostMapping("/addMessage")
+    public JsonResult addMessage(@RequestBody Map opinion){
+        studentService.addMessage((String)opinion.get("opinion"));
+        return new JsonResult(OK);
+    }
 }

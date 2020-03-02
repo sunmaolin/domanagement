@@ -147,6 +147,8 @@ public class DormitoryController extends BaseController {
         return new JsonResult(OK);
     }
 
+    //解决跨域请求
+    @CrossOrigin(origins="http://localhost:8081",allowCredentials="true")
     @GetMapping("findAllNotice")
     public JsonResult<Notice[]> findAllNotice(){
         Notice[] notices = dormitoryService.findAllNotice();
@@ -176,4 +178,6 @@ public class DormitoryController extends BaseController {
         data.put("success",true);
         return data;
     }
+
+
 }

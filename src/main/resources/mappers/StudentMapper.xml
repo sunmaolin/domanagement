@@ -103,6 +103,17 @@
 		)
 	</insert>
 
+	<!--增加留言信息-->
+	<insert id="addMessage">
+		INSERT INTO
+			messageboard
+		(
+			opinion,createTime
+		)VALUES (
+			#{opinion},#{createTime}
+		)
+	</insert>
+
 	<delete id="clearRandomDuty">
 		TRUNCATE TABLE duty
 	</delete>
