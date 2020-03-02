@@ -232,5 +232,8 @@ public class StudentServiceImpl implements StudentService {
         studentMapper.addMessage(messageBoard);
     }
 
-
+    @Override
+    public Map[] findAllMessage() {
+        return studentMapper.findAllMessage();
+    }
 }

@@ -85,6 +85,14 @@
 			did=#{did} AND sname=#{sname}
 	</select>
 
+	<!--查看所有留言-->
+	<select id="findAllMessage" resultType="java.util.Map">
+		SELECT
+			*
+		FROM
+			messageboard
+	</select>
+
 	<insert id="addStudent">
 		INSERT INTO
 			student

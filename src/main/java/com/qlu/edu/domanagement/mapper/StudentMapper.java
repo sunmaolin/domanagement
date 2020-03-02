@@ -115,4 +115,10 @@ public interface StudentMapper {
      * @param messageBoard
      */
     void addMessage(Map messageBoard);
+
+    /**
+     * 查看所有留言
+     * @return
+     */
+    Map[] findAllMessage();
 }

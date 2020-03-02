@@ -3,7 +3,7 @@
  */
 Ext.define('Index.Function',{
     extend:'Ext.menu.Menu',
-    requires:['Index.AddOrDeleteFloor','Index.DisciplinaryRecordWindow','Index.MaintainRecordWindow','Index.PublishNoticePanel'],
+    requires:['Index.AddOrDeleteFloor','Index.DisciplinaryRecordWindow','Index.MaintainRecordWindow','Index.PublishNoticePanel','Index.MessageWindow'],
     xtype:'fun',
     id:'fun',
     width:180,
@@ -22,6 +22,11 @@ Ext.define('Index.Function',{
     loadComp:function(){
         var me=this;
         var items=[{
+            text:'意见留言查看',
+            handler:function () {
+                Ext.widget('messageWindow').show();
+            }
+        },{
             text:'通报功能',
             handler:function () {
                 var isHave = me.isHavaComp('publishNoticePanel');

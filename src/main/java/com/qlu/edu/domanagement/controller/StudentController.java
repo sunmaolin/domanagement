@@ -102,4 +102,10 @@ public class StudentController extends BaseController {
         studentService.addMessage((String)opinion.get("opinion"));
         return new JsonResult(OK);
     }
+
+    @GetMapping("findAllMessage")
+    public JsonResult<Map[]> findAllMessage(){
+        Map[] data = studentService.findAllMessage();
+        return new JsonResult<>(OK,data);
+    }
 }

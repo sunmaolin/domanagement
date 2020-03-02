@@ -77,4 +77,10 @@ public interface StudentService {
      * @param opinion
      */
     void addMessage(String opinion);
+
+    /**
+     * 查看所有留言
+     * @return
+     */
+    Map[] findAllMessage();
 }
