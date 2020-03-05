@@ -163,4 +163,20 @@ public interface DormitoryService {
      */
     void updatePublishNotice(Notice notice,HttpSession session);
 
+    /**
+     * 根据宿舍楼名查找id
+     * @param fname
+     * @return
+     */
+    Integer findFidByFname(String fname);
+
+    /**
+     * 根据宿舍楼id和宿舍名查找did
+     * @param fid
+     * @param dname
+     * @return
+     */
+    Integer findDidByFidAndDname(Integer fid,String dname);
+
+
 }

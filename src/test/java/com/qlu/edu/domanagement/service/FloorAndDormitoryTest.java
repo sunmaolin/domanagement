@@ -13,4 +13,10 @@ public class FloorAndDormitoryTest {
     public void findFloorAndDormitory(){
         System.err.println(dormitoryService.findFloorAndDormitory(0,null).toString());
     }
+
+    @Test
+    public void text(){
+        Integer fid = dormitoryService.findFidByFname("三号楼");
+        System.out.println(fid);
+    }
 }

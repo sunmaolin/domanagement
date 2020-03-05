@@ -7,12 +7,14 @@ import com.qlu.edu.domanagement.service.StudentService;
 import com.qlu.edu.domanagement.service.ex.SidExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 import javax.xml.crypto.Data;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+@Transactional
 @Service
 public class StudentServiceImpl implements StudentService {
 
@@ -162,7 +164,7 @@ public class StudentServiceImpl implements StudentService {
     public void addStudent(Student student, Integer did) {
         String sid=studentMapper.findSidBySid(student.getSid());
         if(sid!=null){
-            throw new SidExistException("该学号已存在！请检查");
+            throw new SidExistException("学号"+sid+"已存在！请检查");
         }
         student.setDid(did);
         studentMapper.addStudent(student);
@@ -235,5 +237,13 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Map[] findAllMessage() {
         return studentMapper.findAllMessage();
+    }
+
+    @Override
+    public void addStudents(List<Student> studentsList) {
+        for (int i = 0; i < studentsList.size(); i++) {
+            Student student = studentsList.get(i);
+            addStudent(student,student.getDid());
+        }
     }
 }

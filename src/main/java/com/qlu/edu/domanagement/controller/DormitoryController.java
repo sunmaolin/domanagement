@@ -83,12 +83,14 @@ public class DormitoryController extends BaseController {
         return new JsonResult<>(OK,maintains);
     }
 
+    @CrossOrigin(origins="http://localhost:8081",allowCredentials="true")
     @GetMapping("findAllFloor")
     public JsonResult<Floor[]> findAllFloor(){
         Floor[] floors = dormitoryService.findAllFloor();
         return new JsonResult<>(OK,floors);
     }
 
+    @CrossOrigin(origins="http://localhost:8081",allowCredentials="true")
     @GetMapping("findDormitoryByFid")
     public JsonResult<Dormitory[]> findDormitory(Integer fid){
         if(fid==null){

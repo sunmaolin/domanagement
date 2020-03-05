@@ -137,6 +137,26 @@
             notice
     </select>
 
+	<!--根据宿舍楼名查找fid-->
+	<select id="findFidByFname" resultType="java.lang.Integer">
+		SELECT
+			fid
+		FROM
+			floor
+		WHERE
+			fname = #{fname}
+	</select>
+
+	<!--根据宿舍楼id和宿舍名查找did-->
+	<select id="findDidByFidAndDname" resultType="java.lang.Integer">
+		SELECT
+			did
+		FROM
+			dormitory
+		WHERE
+			fid=#{fid} AND dname=#{dname}
+	</select>
+
 
 	<!--增加维修记录-->
 	<insert id="addMaintainRecord">

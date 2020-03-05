@@ -3,7 +3,7 @@
  */
 Ext.define('Index.Function',{
     extend:'Ext.menu.Menu',
-    requires:['Index.AddOrDeleteFloor','Index.DisciplinaryRecordWindow','Index.MaintainRecordWindow','Index.PublishNoticePanel','Index.MessageWindow'],
+    requires:['Index.AddOrDeleteFloor','Index.DisciplinaryRecordWindow','Index.MaintainRecordWindow','Index.PublishNoticePanel','Index.MessageWindow','Index.StudentsFileUpload'],
     xtype:'fun',
     id:'fun',
     width:180,
@@ -62,7 +62,7 @@ Ext.define('Index.Function',{
         },{
             text:'学生批量操作',
             handler:function () {
-                Ext.Msg.alert('提示信息','待开发');
+                Ext.create('Index.StudentsFileUpload').show();
             }
         },{
             text:'生成周值日表',

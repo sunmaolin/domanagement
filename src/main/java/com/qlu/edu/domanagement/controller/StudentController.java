@@ -5,7 +5,9 @@ import com.qlu.edu.domanagement.controller.ex.FileTypeException;
 import com.qlu.edu.domanagement.entity.Disciplinary;
 import com.qlu.edu.domanagement.entity.RandomDuty;
 import com.qlu.edu.domanagement.entity.Student;
+import com.qlu.edu.domanagement.service.DormitoryService;
 import com.qlu.edu.domanagement.service.StudentService;
+import com.qlu.edu.domanagement.util.ImportExcel;
 import com.qlu.edu.domanagement.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,9 @@ import java.util.*;
 public class StudentController extends BaseController {
     @Autowired
     StudentService studentService;
+
+    @Autowired
+    DormitoryService dormitoryService;
 
     @RequestMapping("find/{did}")
     public JsonResult<Student> findStudentsByDid(@PathVariable("did")Integer did){
@@ -41,6 +46,8 @@ public class StudentController extends BaseController {
         return new JsonResult<>(OK);
     }
 
+    //解决跨域请求
+    @CrossOrigin(origins="http://localhost:8081",allowCredentials="true")
     @RequestMapping("findRandomDuty/{did}")
     public JsonResult<RandomDuty> findRandomDuty(@PathVariable("did")Integer did){
         return new JsonResult<>(OK,studentService.findRandomDutyByDid(did));
@@ -109,4 +116,25 @@ public class StudentController extends BaseController {
         Map[] data = studentService.findAllMessage();
         return new JsonResult<>(OK,data);
     }
+
+    @PostMapping("addStudents")
+    public Map addStudents(MultipartFile studentsFile){
+        ImportExcel importExcel = new ImportExcel(studentsFile);
+        if(!importExcel.typeError()){
+            throw new RuntimeException("文件类型错误，支持xlsx，xls");
+        }
+        try {
+            List<Student> studentsList = importExcel.importStudent(dormitoryService);
+            studentService.addStudents(studentsList);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("io异常");
+        }
+
+        Map data = new HashMap();
+        data.put("success",true);
+        data.put("state",2000);
+        return data;
+    }
+
 }

@@ -83,4 +83,10 @@ public interface StudentService {
      * @return
      */
     Map[] findAllMessage();
+
+    /**
+     * 批量上传学生
+     * @param studentsList
+     */
+    void addStudents(List<Student> studentsList);
 }

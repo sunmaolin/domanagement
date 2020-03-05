@@ -5,11 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 @SpringBootTest
 public class FloorAndDormitoryMapperTest {
 
@@ -88,6 +83,10 @@ public class FloorAndDormitoryMapperTest {
         System.out.println(notices[0].toString());
     }
 
-
+    @Test
+    public void text(){
+        Integer fid = dormitoryMapper.findFidByFname("三号楼");
+        System.out.println(fid);
+    }
 
 }

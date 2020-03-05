@@ -91,6 +91,8 @@
 			*
 		FROM
 			messageboard
+		ORDER BY
+			createTime DESC
 	</select>
 
 	<insert id="addStudent">

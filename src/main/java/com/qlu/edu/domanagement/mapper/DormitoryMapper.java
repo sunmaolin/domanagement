@@ -1,6 +1,7 @@
 package com.qlu.edu.domanagement.mapper;
 
 import com.qlu.edu.domanagement.entity.*;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Map;
@@ -162,5 +163,18 @@ public interface DormitoryMapper {
      */
     void updatePublishNotice(Notice notice);
 
+    /**
+     * 根据宿舍楼名查找fid
+     * @param fname
+     * @return
+     */
+    Integer findFidByFname(String fname);
 
+    /**
+     * 根据宿舍楼id和宿舍名查找did
+     * @param fid
+     * @param dname
+     * @return
+     */
+    Integer findDidByFidAndDname(@Param("fid")Integer fid,@Param("dname")String dname);
 }

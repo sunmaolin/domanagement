@@ -9,6 +9,7 @@ import com.qlu.edu.domanagement.service.ex.FloorNameExistException;
 import com.qlu.edu.domanagement.service.ex.HaveChildrenException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 import java.beans.PropertyDescriptor;
@@ -17,6 +18,7 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+@Transactional//事物回滚
 @Service
 public class DormitoryServiceImpl implements DormitoryService {
 
@@ -261,6 +263,16 @@ public class DormitoryServiceImpl implements DormitoryService {
         notice.setModifyTime(modifyTime);
         notice.setModifyUser(modifyUser);
         dormitoryMapper.updatePublishNotice(notice);
+    }
+
+    @Override
+    public Integer findFidByFname(String fname) {
+        return dormitoryMapper.findFidByFname(fname);
+    }
+
+    @Override
+    public Integer findDidByFidAndDname(Integer fid, String dname) {
+        return dormitoryMapper.findDidByFidAndDname(fid,dname);
     }
 
 
