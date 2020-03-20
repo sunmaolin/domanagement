@@ -1,7 +1,5 @@
 package com.qlu.edu.domanagement.controller;
 
-import com.qlu.edu.domanagement.controller.ex.FileIoException;
-import com.qlu.edu.domanagement.controller.ex.FileTypeException;
 import com.qlu.edu.domanagement.entity.Disciplinary;
 import com.qlu.edu.domanagement.entity.RandomDuty;
 import com.qlu.edu.domanagement.entity.Student;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -136,5 +133,22 @@ public class StudentController extends BaseController {
         data.put("state",2000);
         return data;
     }
+
+    @GetMapping("getAllGrade")
+    public JsonResult getAllGrade(){
+        List classes = studentService.findAllGrade();
+        return new JsonResult(OK,classes);
+    }
+
+    @RequestMapping("deleteStudents")
+    public Map deleteStudents(Integer grade){
+        studentService.deleteStudents(grade);
+        Map data = new HashMap();
+        data.put("state",OK);
+        data.put("success",true);
+        return data;
+    }
+
+
 
 }

@@ -89,4 +89,16 @@ public interface StudentService {
      * @param studentsList
      */
     void addStudents(List<Student> studentsList);
+
+    /**
+     * 查找所有的年级
+     * @return
+     */
+    List<String> findAllGrade();
+
+    /**
+     * 批量删除毕业生
+     * @param grade
+     */
+    void deleteStudents(Integer grade);
 }

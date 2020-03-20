@@ -61,9 +61,17 @@ Ext.define('Index.Function',{
             })
         },{
             text:'学生批量操作',
-            handler:function () {
-                Ext.create('Index.StudentsFileUpload').show();
-            }
+            menu:Ext.create('Ext.menu.Menu',{
+                plain:true,
+                items:[
+                    {text:'批量添加学生',handler:function () {
+                            Ext.create('Index.StudentsFileUpload').show();
+                        }},
+                    {text:'批量删除毕业生',handler:function () {
+                        Ext.create('Index.DeleteStudents').show();
+                        }}
+                ]
+            })
         },{
             text:'生成周值日表',
             handler:function () {

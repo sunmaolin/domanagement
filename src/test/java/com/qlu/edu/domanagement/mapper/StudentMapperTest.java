@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @SpringBootTest
@@ -80,6 +79,19 @@ public class StudentMapperTest {
         map.put("opinion","宿舍好");
         map.put("createTime","1998-07-27");
         studentMapper.addMessage(map);
+    }
+
+    @Test
+    public void deletStudents(){
+        studentMapper.deleteStudents(17);
+    }
+
+    @Test
+    public void findAllGrade(){
+        String[] grades = studentMapper.findAllGrade();
+        for (String grade : grades){
+            System.out.println(grade);
+        }
     }
 
 }

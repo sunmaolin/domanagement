@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
-import javax.xml.crypto.Data;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -240,10 +240,28 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<String> findAllGrade() {
+        List<String> classes = new ArrayList<>();
+        String[] grades = studentMapper.findAllGrade();
+        for(String grade : grades){
+            classes.add(grade.substring(0,grade.indexOf("-")));
+        }
+        return classes.stream().distinct().collect(Collectors.toList());
+    }
+
+    @Override
     public void addStudents(List<Student> studentsList) {
         for (int i = 0; i < studentsList.size(); i++) {
             Student student = studentsList.get(i);
             addStudent(student,student.getDid());
         }
+    }
+
+    @Override
+    public void deleteStudents(Integer grade) {
+        //删除学生表中的学生
+        studentMapper.deleteStudents(grade);
+        //删除学生的违纪信息
+        studentMapper.deleteStudentsDisciplinary(grade);
     }
 }

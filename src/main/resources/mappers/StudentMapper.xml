@@ -85,6 +85,14 @@
 			did=#{did} AND sname=#{sname}
 	</select>
 
+	<!--查找所有的年纪-->
+	<select id="findAllGrade" resultType="java.lang.String">
+		SELECT DISTINCT
+			sclass
+		FROM
+		 	student
+	</select>
+
 	<!--查看所有留言-->
 	<select id="findAllMessage" resultType="java.util.Map">
 		SELECT
@@ -128,6 +136,11 @@
 		TRUNCATE TABLE duty
 	</delete>
 
+	<!--删除毕业生-->
+	<delete id="deleteStudents">
+		DELETE  FROM student WHERE sclass LIKE CONCAT(#{grade},'%')
+	</delete>
+
 	<delete id="deleteStudent">
 		DELETE FROM
 			student
@@ -147,6 +160,14 @@
 			perordordisciplinary
 		WHERE
 			sid=#{sid}
+	</delete>
+
+	<!--删除毕业生违纪信息-->
+	<delete id="deleteStudentsDisciplinary">
+		DELETE FROM
+			perordordisciplinary
+		WHERE
+			sid LIKE CONCAT('__',CONCAT(#{grade},'%'))
 	</delete>
 </mapper>
 

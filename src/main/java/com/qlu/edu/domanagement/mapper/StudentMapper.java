@@ -6,7 +6,6 @@ import com.qlu.edu.domanagement.entity.Student;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -121,4 +120,22 @@ public interface StudentMapper {
      * @return
      */
     Map[] findAllMessage();
+
+    /**
+     * 查找所有的年级
+     * @return
+     */
+    String[] findAllGrade();
+
+    /**
+     * 删除毕业生
+     * @param grade
+     */
+    void deleteStudents(Integer grade);
+
+    /**
+     * 删除毕业生相关数据
+     * @param grade
+     */
+    void deleteStudentsDisciplinary(Integer grade);
 }
