@@ -29,12 +29,14 @@ Ext.define('Index.Function',{
         },{
             text:'通报功能',
             handler:function () {
-                var isHave = me.isHavaComp('publishNoticePanel');
-                if (!isHave) {
-                    isHave=Ext.widget('publishNoticePanel');
-                    Ext.getCmp('center').add(isHave);
-                }
-                Ext.getCmp('center').setActiveTab(isHave);
+                me.isControl('',function () {
+                    var isHave = me.isHavaComp('publishNoticePanel');
+                    if (!isHave) {
+                        isHave=Ext.widget('publishNoticePanel');
+                        Ext.getCmp('center').add(isHave);
+                    }
+                    Ext.getCmp('center').setActiveTab(isHave);
+                });
             }
         },{
             text:'宿舍维修登记',
@@ -65,10 +67,10 @@ Ext.define('Index.Function',{
                 plain:true,
                 items:[
                     {text:'批量添加学生',handler:function () {
-                            Ext.create('Index.StudentsFileUpload').show();
+                            me.isControl(Ext.create('Index.StudentsFileUpload'));
                         }},
                     {text:'批量删除毕业生',handler:function () {
-                        Ext.create('Index.DeleteStudents').show();
+                            me.isControl(Ext.create('Index.DeleteStudents'));
                         }}
                 ]
             })

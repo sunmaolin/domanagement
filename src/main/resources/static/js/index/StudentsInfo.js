@@ -112,28 +112,30 @@ Ext.define('Index.StudentsInfo', {
       }).show();
     },
     addStudent:function () {
-        Ext.create('Index.AddStudent',{did:this.did}).show();
+        Ext.getCmp('fun').isControl(Ext.create('Index.AddStudent',{did:this.did}));
     },
     deleteStudent:function (selected) {
         // console.log(this.down('grid').getSelectionModel().selected.items[0].data);
         var grid=this.down('grid');
-        if (!selected){
-            Ext.Msg.alert('提示信息','请在表格中选中学生进行删除！');
-            return;
-        }else {
-            Ext.Ajax.request({
-               url:'/student/deleteStudent/'+selected.data.sid,
-               method:'GET',
-               success:function (response) {
-                   var resp=Ext.decode(response.responseText);
-                   if(resp.state){
-                       Ext.Msg.alert('提示信息','删除成功！');
-                       grid.getStore().load();
-                   }else{
-                       Ext.Msg.alert('提示信息',resp.message);
-                   }
-               }
-            });
-        }
+        Ext.getCmp('fun').isControl('',function () {
+            if (!selected){
+                Ext.Msg.alert('提示信息','请在表格中选中学生进行删除！');
+                return;
+            }else {
+                Ext.Ajax.request({
+                    url:'/student/deleteStudent/'+selected.data.sid,
+                    method:'GET',
+                    success:function (response) {
+                        var resp=Ext.decode(response.responseText);
+                        if(resp.state){
+                            Ext.Msg.alert('提示信息','删除成功！');
+                            grid.getStore().load();
+                        }else{
+                            Ext.Msg.alert('提示信息',resp.message);
+                        }
+                    }
+                });
+            }
+        });
     }
 });

@@ -16,7 +16,7 @@ Ext.define('Index.Main',{
     loadData:function () {
         var me=this;
 
-        //动态加载宿舍机构数store
+        //动态加载宿舍机构树store
         /**
          * 说明：节点root不显示是默认展开，展开加载数据时，如果
          * 不是root节点展开就将flag设置为1，进行子节点的查询
