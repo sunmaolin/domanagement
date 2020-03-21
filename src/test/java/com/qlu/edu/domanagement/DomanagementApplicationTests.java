@@ -35,6 +35,12 @@ class DomanagementApplicationTests {
         }
     }
 
-
+    @Test
+    public void pathTest(){
+        String path = System.getProperty("user.dir")+"\\domanagement\\src\\main\\resources\\static\\images\\upload\\";
+        String os = System.getProperty("os.name");
+        System.err.println(path);
+        System.err.println(os);
+    }
 
 }

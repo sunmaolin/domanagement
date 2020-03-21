@@ -36,4 +36,18 @@ public class LoginInterceptorConfigurer implements WebMvcConfigurer {
         patterns.add("favicon.ico");
         registry.addInterceptor(interceptor).addPathPatterns("/**").excludePathPatterns(patterns);
     }
+
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        //获取文件的真实路径 work_project代表项目工程名 需要更改
+//        String path = System.getProperty("user.dir")+"\\domanagement\\src\\main\\resources\\static\\images\\upload";
+//        String os = System.getProperty("os.name");
+////        if (os.toLowerCase().startsWith("win")) {
+////            registry.addResourceHandler("/images/upload/**").addResourceLocations("file:"+path);
+////        }else{//linux和mac系统 可以根据逻辑再做处理
+////            registry.addResourceHandler("/images/upload/**").addResourceLocations("file:"+path);
+////        }
+////        addResourceHandlers(registry);
+//    }
+
 }

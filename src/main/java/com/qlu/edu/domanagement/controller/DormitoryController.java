@@ -1,22 +1,16 @@
 package com.qlu.edu.domanagement.controller;
 
-import com.qlu.edu.domanagement.controller.ex.FileIoException;
-import com.qlu.edu.domanagement.controller.ex.FileTypeException;
 import com.qlu.edu.domanagement.entity.*;
 import com.qlu.edu.domanagement.service.DormitoryService;
 import com.qlu.edu.domanagement.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import sun.applet.Main;
 
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("dormitory")
@@ -176,6 +170,15 @@ public class DormitoryController extends BaseController {
     @PostMapping("updatePublishNotice")
     public Map updatePublishNotice(Notice notice,HttpSession session){
         dormitoryService.updatePublishNotice(notice,session);
+        Map data = new HashMap();
+        data.put("state",OK);
+        data.put("success",true);
+        return data;
+    }
+
+    @PostMapping("deleteDormitorysDisciplinary")
+    public Map deleteDormitorysDisciplinary(String startTime,String endTime){
+        dormitoryService.deleteDormitorysDisciplinary(startTime, endTime);
         Map data = new HashMap();
         data.put("state",OK);
         data.put("success",true);

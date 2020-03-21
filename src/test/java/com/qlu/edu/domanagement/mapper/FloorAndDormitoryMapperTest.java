@@ -89,4 +89,9 @@ public class FloorAndDormitoryMapperTest {
         System.out.println(fid);
     }
 
+    @Test
+    public void delete(){
+        dormitoryMapper.deleteDormitorysDisciplinary("2020-03-22","2020-03-22");
+    }
+
 }

@@ -3,7 +3,7 @@
  */
 Ext.define('Index.Function',{
     extend:'Ext.menu.Menu',
-    requires:['Index.AddOrDeleteFloor','Index.DisciplinaryRecordWindow','Index.MaintainRecordWindow','Index.PublishNoticePanel','Index.MessageWindow','Index.StudentsFileUpload'],
+    requires:['Index.deleteDormitorysDisciplinary','Index.AddOrDeleteFloor','Index.DisciplinaryRecordWindow','Index.MaintainRecordWindow','Index.PublishNoticePanel','Index.MessageWindow','Index.StudentsFileUpload'],
     xtype:'fun',
     id:'fun',
     width:180,
@@ -61,6 +61,11 @@ Ext.define('Index.Function',{
                         }}
                 ]
             })
+        },{
+            text:'批量删除宿舍违纪',
+            handler:function(){
+                me.isControl(Ext.widget('deleteDormitorysDisciplinary'));
+            }
         },{
             text:'学生批量操作',
             menu:Ext.create('Ext.menu.Menu',{

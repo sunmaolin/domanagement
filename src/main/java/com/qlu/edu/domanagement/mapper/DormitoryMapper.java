@@ -177,4 +177,9 @@ public interface DormitoryMapper {
      * @return
      */
     Integer findDidByFidAndDname(@Param("fid")Integer fid,@Param("dname")String dname);
+
+    /**
+     * 批量删除宿舍违纪记录
+     */
+    void deleteDormitorysDisciplinary(String startTime,String endTime);
 }

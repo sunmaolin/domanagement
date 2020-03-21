@@ -178,5 +178,10 @@ public interface DormitoryService {
      */
     Integer findDidByFidAndDname(Integer fid,String dname);
 
-
+    /**
+     * 批量删除宿舍违纪记录
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     */
+    void deleteDormitorysDisciplinary(String startTime,String endTime);
 }

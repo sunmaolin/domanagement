@@ -275,7 +275,10 @@ public class DormitoryServiceImpl implements DormitoryService {
         return dormitoryMapper.findDidByFidAndDname(fid,dname);
     }
 
-
+    @Override
+    public void deleteDormitorysDisciplinary(String startTime, String endTime) {
+        dormitoryMapper.deleteDormitorysDisciplinary(startTime,endTime);
+    }
 
     /**
      * 数字转为汉字的处理方法
