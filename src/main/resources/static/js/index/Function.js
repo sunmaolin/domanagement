@@ -3,7 +3,7 @@
  */
 Ext.define('Index.Function',{
     extend:'Ext.menu.Menu',
-    requires:['Index.deleteDormitorysDisciplinary','Index.AddOrDeleteFloor','Index.DisciplinaryRecordWindow','Index.MaintainRecordWindow','Index.PublishNoticePanel','Index.MessageWindow','Index.StudentsFileUpload'],
+    requires:['Index.GuideWindow','Index.deleteDormitorysDisciplinary','Index.AddOrDeleteFloor','Index.DisciplinaryRecordWindow','Index.MaintainRecordWindow','Index.PublishNoticePanel','Index.MessageWindow','Index.StudentsFileUpload'],
     xtype:'fun',
     id:'fun',
     width:180,
@@ -22,6 +22,11 @@ Ext.define('Index.Function',{
     loadComp:function(){
         var me=this;
         var items=[{
+            text:'导员信息',
+            handler:function () {
+                Ext.create('Index.GuideWindow').show();
+            }
+        },{
             text:'意见留言查看',
             handler:function () {
                 Ext.widget('messageWindow').show();

@@ -1,0 +1,40 @@
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<!-- namespace：对应哪个接口 -->
+<mapper namespace="com.qlu.edu.domanagement.mapper.GuideMapper">
+
+    <!--查找导员信息-->
+    <select id="findAllGuide" resultType="com.qlu.edu.domanagement.entity.Guide">
+        SELECT
+            *
+        FROM
+            guide
+    </select>
+
+    <!--根据条件查找导员-->
+    <select id="searchGuide" resultType="com.qlu.edu.domanagement.entity.Guide">
+        SELECT
+            *
+        FROM
+            guide
+        WHERE
+            gname = #{searchCondition} OR sprofessional=#{searchCondition}
+    </select>
+
+    <!--增加导员-->
+    <insert id="addGuide">
+        INSERT INTO
+            guide
+        VALUES (
+            NULL,#{gname},#{gphone},#{gsex},#{sprofessional},#{sclass}
+        )
+    </insert>
+
+    <!--删除导员-->
+    <delete id="deleteGuide">
+        DELETE FROM
+            guide
+        WHERE
+            gid = #{gid}
+    </delete>
+
+</mapper>

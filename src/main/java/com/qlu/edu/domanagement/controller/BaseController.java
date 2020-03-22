@@ -42,6 +42,7 @@ public abstract class BaseController {
      */
     @ExceptionHandler({ServiceException.class,Exception.class})
     public JsonResult<Void> handleException(Throwable e){
+        //返回异常信息
         JsonResult<Void> jr=new JsonResult<>(e);
         return jr;
     }
