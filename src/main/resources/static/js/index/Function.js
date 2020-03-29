@@ -6,6 +6,7 @@ Ext.define('Index.Function',{
     requires:['Index.GuideWindow','Index.deleteDormitorysDisciplinary','Index.AddOrDeleteFloor','Index.DisciplinaryRecordWindow','Index.MaintainRecordWindow','Index.PublishNoticePanel','Index.MessageWindow','Index.StudentsFileUpload'],
     xtype:'fun',
     id:'fun',
+    border:0,
     width:180,
     plain:true,
     margin: '0 0 10 0',
@@ -418,6 +419,8 @@ Ext.define('Index.Function',{
     },
     /**
      * 判断是否存在操作权限权限
+     * win:窗口权限
+     * call：回调方法
      */
     isControl:function (win,call) {
         Ext.Ajax.request({

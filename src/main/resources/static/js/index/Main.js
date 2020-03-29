@@ -117,6 +117,7 @@ Ext.define('Index.Main',{
         };
         var east={
             title:'功能菜单',
+            layout:'fit',
             region: 'east',
             width: 180,
             collapsible: true,

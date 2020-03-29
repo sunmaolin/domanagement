@@ -87,21 +87,23 @@ Ext.define('Index.GuideWindow', {
             width:60,
             height:30,
             handler:function () {
-                var selectGuide = gridPanel.getSelectionModel().getSelection();
-                if(selectGuide.length == 0){
-                    Ext.Msg.alert('提示信息','请选中要删除的导员！');
-                    return;
-                }
-                var gid = selectGuide[0].getData(false).gid;
-                Ext.Ajax.request({
-                    url: '/guide/deleteGuide',
-                    params: {
-                        gid: gid
-                    },
-                    success: function(){
-                        me.guideStore.load();
-                        Ext.Msg.alert('提示信息','删除成功!');
+                Ext.getCmp('fun').isControl('',function(){
+                    var selectGuide = gridPanel.getSelectionModel().getSelection();
+                    if(selectGuide.length == 0){
+                        Ext.Msg.alert('提示信息','请选中要删除的导员！');
+                        return;
                     }
+                    var gid = selectGuide[0].getData(false).gid;
+                    Ext.Ajax.request({
+                        url: '/guide/deleteGuide',
+                        params: {
+                            gid: gid
+                        },
+                        success: function () {
+                            me.guideStore.load();
+                            Ext.Msg.alert('提示信息', '删除成功!');
+                        }
+                    });
                 });
             }
         });
