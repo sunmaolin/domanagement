@@ -52,7 +52,7 @@ Ext.define('Index.Function',{
                 }
             }
         },{
-            text:'违纪记录',
+            text:'违纪记录操作',
             menu:Ext.create('Ext.menu.Menu',{
                 plain:true,
                 items:[
@@ -64,14 +64,12 @@ Ext.define('Index.Function',{
                         }},
                     {text:'卫生查询记录',handler:function() {
                             Ext.create('Index.DisciplinaryRecordWindow',{title:'卫生查询记录',flag:2,url: '/student/findAllStudentDisciplinary/true'}).show();
+                        }},
+                    {text:'批量删除宿舍违纪',handler:function(){
+                            me.isControl(Ext.widget('deleteDormitorysDisciplinary'));
                         }}
                 ]
             })
-        },{
-            text:'批量删除宿舍违纪',
-            handler:function(){
-                me.isControl(Ext.widget('deleteDormitorysDisciplinary'));
-            }
         },{
             text:'学生批量操作',
             menu:Ext.create('Ext.menu.Menu',{
