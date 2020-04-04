@@ -9,7 +9,7 @@
 		FROM
 			floor
 		ORDER BY
-			fid
+			fname
 	</select>
 
 	<!--根据宿舍楼id查询所有宿舍-->
@@ -88,6 +88,7 @@
 			maintain
 		WHERE
 			did=#{did}
+		ORDER BY createTime DESC
 	</select>
 
 	<!--查找所有宿舍的违纪信息-->
@@ -98,6 +99,7 @@
 			perordordisciplinary
 		WHERE
 			did IS NOT NULL
+		ORDER BY createTime DESC
 	</select>
 
 	<!--根据did查找宿舍-->
@@ -108,6 +110,7 @@
 			dormitory
 		WHERE
 			did=#{did}
+		ORDER BY dname
 	</select>
 
 	<!--根据did查找宿舍楼-->
@@ -135,6 +138,7 @@
             *
         FROM
             notice
+        ORDER BY createTime DESC
     </select>
 
 	<!--根据宿舍楼名查找fid-->
