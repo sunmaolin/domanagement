@@ -52,10 +52,12 @@ Ext.define('Index.AddStudent', {
                 name:'ssex'
             },{
                 fieldLabel:'专业',
-                name:'sprofessional'
+                name:'sprofessional',
+                emptyText:'格式：计科-开发'
             },{
                 fieldLabel:'班级',
-                name:'sclass'
+                name:'sclass',
+                emptyText:'格式：16-3'
             }],
             buttons:[{
                 text:'确定',

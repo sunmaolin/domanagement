@@ -50,11 +50,11 @@ Ext.define('Index.AddGuide', {
             },{
                 fieldLabel:'专业',
                 name:'sprofessional',
-                emptyText:'严格按照格式：计科-开发'
+                emptyText:'填写所属学院'
             },{
                 fieldLabel:'班级',
                 name:'sclass',
-                emptyText:'多个班级格式：16-3/16-4'
+                emptyText:'填写所属年级'
             }],
             buttons:[{
                 text:'确定',

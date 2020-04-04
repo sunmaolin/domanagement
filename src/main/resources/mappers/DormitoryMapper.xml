@@ -9,7 +9,7 @@
 		FROM
 			floor
 		ORDER BY
-			fname
+			fid
 	</select>
 
 	<!--根据宿舍楼id查询所有宿舍-->
@@ -129,7 +129,7 @@
 			*
 		FROM
 			maintain
-		ORDER BY createTime DESC
+		ORDER BY createTime DESC,maintainTime ASC
 	</select>
 
     <!--查找所有的通知-->
