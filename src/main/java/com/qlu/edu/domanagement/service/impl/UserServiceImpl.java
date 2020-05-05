@@ -59,7 +59,6 @@ public class UserServiceImpl implements UserService {
         if(rows!=0){
             throw new UserNameIsHavaException("用户名已存在！");
         }
-
     }
 
     @Override

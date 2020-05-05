@@ -184,4 +184,9 @@ public interface DormitoryService {
      * @param endTime 结束时间
      */
     void deleteDormitorysDisciplinary(String startTime,String endTime);
+
+    /**
+     * 发布当日卫生检查情况
+     */
+    void publishDormitoryCheck();
 }

@@ -34,16 +34,34 @@ Ext.define('Index.Function',{
             }
         },{
             text:'通报功能',
-            handler:function () {
-                me.isControl('',function () {
-                    var isHave = me.isHavaComp('publishNoticePanel');
-                    if (!isHave) {
-                        isHave=Ext.widget('publishNoticePanel');
-                        Ext.getCmp('center').add(isHave);
-                    }
-                    Ext.getCmp('center').setActiveTab(isHave);
-                });
-            }
+            menu:Ext.create('Ext.menu.Menu',{
+                plain:true,
+                items:[
+                    {text:'发布通知',handler:function(){
+                            me.isControl('',function () {
+                                var isHave = me.isHavaComp('publishNoticePanel');
+                                if (!isHave) {
+                                    isHave=Ext.widget('publishNoticePanel');
+                                    Ext.getCmp('center').add(isHave);
+                                }
+                                Ext.getCmp('center').setActiveTab(isHave);
+                            });
+                    }},{text:'发布当日卫生查询',handler:function(){
+                            me.isControl('',function(){
+                                var wait=Ext.Msg.wait('正在发布...');
+                                Ext.Ajax.request({
+                                    url:'/dormitory/publishDormitoryCheck',
+                                    success:function (response) {
+                                        if(Ext.decode(response.responseText).state){
+                                            wait.close();
+                                            Ext.Msg.alert('提示信息','发布成功！');
+                                        };
+                                    }
+                                });
+                            });
+                    }}
+                ]
+            })
         },{
             text:'宿舍维修登记',
             handler:function () {

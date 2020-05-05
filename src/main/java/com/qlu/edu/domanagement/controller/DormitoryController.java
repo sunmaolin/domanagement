@@ -176,6 +176,12 @@ public class DormitoryController extends BaseController {
         return data;
     }
 
+    @GetMapping("publishDormitoryCheck")
+    public JsonResult publishDormitoryCheck(){
+        dormitoryService.publishDormitoryCheck();
+        return new JsonResult(OK);
+    }
+
     @PostMapping("deleteDormitorysDisciplinary")
     public Map deleteDormitorysDisciplinary(String startTime,String endTime){
         dormitoryService.deleteDormitorysDisciplinary(startTime, endTime);

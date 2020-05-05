@@ -222,9 +222,11 @@ public class DormitoryServiceImpl implements DormitoryService {
 
     @Override
     public void updateMaintainRecord(Maintain[] maintains) {
+        //当前日期为修改日期
         Date now =new Date();
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         String maintainTime=sdf.format(now);
+        //循环更新修改的每一条记录
         for (Maintain maintain:maintains){
             maintain.setMaintainTime(maintainTime);
             dormitoryMapper.updateMaintainRecord(maintain);
@@ -256,7 +258,7 @@ public class DormitoryServiceImpl implements DormitoryService {
     public void updatePublishNotice(Notice notice, HttpSession session) {
         //先将原来的删除
         dormitoryMapper.deletePublishNotice(notice.getNid());
-
+        //获取当前日期
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String modifyTime = sdf.format(new Date());
         String modifyUser = (String) session.getAttribute("username");
@@ -278,6 +280,41 @@ public class DormitoryServiceImpl implements DormitoryService {
     @Override
     public void deleteDormitorysDisciplinary(String startTime, String endTime) {
         dormitoryMapper.deleteDormitorysDisciplinary(startTime,endTime);
+    }
+
+    @Override
+    public void publishDormitoryCheck() {
+        Map[] dormitoryChecks = studentMapper.findStudentAllDisciplinary(true);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String today = simpleDateFormat.format(new Date());
+        List all = new ArrayList();
+        Map dormitoryInfo;
+        Notice notice = new Notice();
+        notice.setTitle(today+"卫生不合格通知");
+        notice.setCreateTime(today);
+        notice.setCreateUser("su");
+        notice.setPublishUser("舍管部门");
+        StringBuilder allContent = new StringBuilder();
+        for (int i = 0; i < dormitoryChecks.length; i++) {
+            dormitoryInfo = new HashMap();
+            if(today.equals(dormitoryChecks[i].get("createTime"))){
+//                dormitoryInfo.put("createTime",dormitoryChecks[i].get("createTime"));
+//                dormitoryInfo.put("content",dormitoryChecks[i].get("content"));
+                String content = (String)dormitoryChecks[i].get("content");
+//                String sname = studentMapper.findStudentBySid((String)dormitoryChecks[i].get("sid")).getSname();
+                Integer did = studentMapper.findStudentBySid((String)dormitoryChecks[i].get("sid")).getDid();
+                String dname = dormitoryMapper.findDormitoryByDid(did).getDname();
+                String fname = dormitoryMapper.findFloorByFid(dormitoryMapper.findDormitoryByDid(did).getFid()).getFname();
+//                dormitoryInfo.put("fname",fname);
+//                dormitoryInfo.put("dname",dname);
+//                dormitoryInfo.put("sname",sname);
+                allContent.append(fname+"-"+dname+":"+content);
+                allContent.append("\n\r\t");
+//                all.add(dormitoryInfo);
+            }
+        }
+        notice.setContent(allContent.toString());
+        dormitoryMapper.addPublishNotice(notice);
     }
 
     /**
