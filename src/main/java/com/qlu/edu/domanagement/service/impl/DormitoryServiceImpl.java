@@ -287,8 +287,6 @@ public class DormitoryServiceImpl implements DormitoryService {
         Map[] dormitoryChecks = studentMapper.findStudentAllDisciplinary(true);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String today = simpleDateFormat.format(new Date());
-        List all = new ArrayList();
-        Map dormitoryInfo;
         Notice notice = new Notice();
         notice.setTitle(today+"卫生不合格通知");
         notice.setCreateTime(today);
@@ -296,21 +294,13 @@ public class DormitoryServiceImpl implements DormitoryService {
         notice.setPublishUser("舍管部门");
         StringBuilder allContent = new StringBuilder();
         for (int i = 0; i < dormitoryChecks.length; i++) {
-            dormitoryInfo = new HashMap();
             if(today.equals(dormitoryChecks[i].get("createTime"))){
-//                dormitoryInfo.put("createTime",dormitoryChecks[i].get("createTime"));
-//                dormitoryInfo.put("content",dormitoryChecks[i].get("content"));
                 String content = (String)dormitoryChecks[i].get("content");
-//                String sname = studentMapper.findStudentBySid((String)dormitoryChecks[i].get("sid")).getSname();
                 Integer did = studentMapper.findStudentBySid((String)dormitoryChecks[i].get("sid")).getDid();
                 String dname = dormitoryMapper.findDormitoryByDid(did).getDname();
                 String fname = dormitoryMapper.findFloorByFid(dormitoryMapper.findDormitoryByDid(did).getFid()).getFname();
-//                dormitoryInfo.put("fname",fname);
-//                dormitoryInfo.put("dname",dname);
-//                dormitoryInfo.put("sname",sname);
                 allContent.append(fname+"-"+dname+":"+content);
                 allContent.append("\n\r\t");
-//                all.add(dormitoryInfo);
             }
         }
         notice.setContent(allContent.toString());

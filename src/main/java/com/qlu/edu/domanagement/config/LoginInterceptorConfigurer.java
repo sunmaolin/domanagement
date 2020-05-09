@@ -30,6 +30,10 @@ public class LoginInterceptorConfigurer implements WebMvcConfigurer {
         patterns.add("/dormitory/findDormitoryByFid");
         //学生端查找值日表
         patterns.add("/student/findRandomDuty/{did}");
+        //学生端查找学生
+        patterns.add("/student/find/{did}");
+        //学生端报修
+        patterns.add("/dormitory/addMaintainRecord");
         patterns.add("/css/**");
         patterns.add("/images/**");
         patterns.add("/js/**");

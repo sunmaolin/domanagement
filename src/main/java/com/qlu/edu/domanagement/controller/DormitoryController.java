@@ -123,8 +123,10 @@ public class DormitoryController extends BaseController {
         return new JsonResult<>(OK,maintains);
     }
 
+    @CrossOrigin(origins="http://localhost:8081",allowCredentials="true")
     @PostMapping("addMaintainRecord")
     public Map addMaintainRecord(Maintain maintain){
+        System.out.println(maintain.toString());
         dormitoryService.addMaintainRecord(maintain);
         Map data = new HashMap();
         data.put("success",true);

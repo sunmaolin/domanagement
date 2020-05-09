@@ -24,6 +24,8 @@ public class StudentController extends BaseController {
     @Autowired
     DormitoryService dormitoryService;
 
+    //解决跨域请求
+    @CrossOrigin(origins="http://localhost:8081",allowCredentials="true")
     @RequestMapping("find/{did}")
     public JsonResult<Student> findStudentsByDid(@PathVariable("did")Integer did){
         if (did==null){
