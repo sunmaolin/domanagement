@@ -55,6 +55,9 @@ Ext.define('Index.Function',{
                                         if(Ext.decode(response.responseText).state){
                                             wait.close();
                                             Ext.Msg.alert('提示信息','发布成功！');
+                                        }else{
+                                            wait.close();
+                                            Ext.Msg.alert('提示信息',Ext.decode(response.responseText).message);
                                         };
                                     }
                                 });
@@ -132,7 +135,7 @@ Ext.define('Index.Function',{
                     width:350,
                     height:400,
                     draggable:false,//不可移动
-                    resizable:false,//不可改变大小
+                    resizable:true,//不可改变大小
                     modal:true,//模态窗口
                     layout:'fit',
                     items:{

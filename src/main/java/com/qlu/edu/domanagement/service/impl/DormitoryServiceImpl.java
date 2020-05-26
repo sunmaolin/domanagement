@@ -7,6 +7,7 @@ import com.qlu.edu.domanagement.service.DormitoryService;
 import com.qlu.edu.domanagement.service.ex.DormitoryNameExistException;
 import com.qlu.edu.domanagement.service.ex.FloorNameExistException;
 import com.qlu.edu.domanagement.service.ex.HaveChildrenException;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -302,6 +303,9 @@ public class DormitoryServiceImpl implements DormitoryService {
                 allContent.append(fname+"-"+dname+":"+content);
                 allContent.append("\n\r\t");
             }
+        }
+        if(StringUtils.isBlank(allContent.toString())){
+            throw new RuntimeException("当日无卫生动态！");
         }
         notice.setContent(allContent.toString());
         dormitoryMapper.addPublishNotice(notice);
